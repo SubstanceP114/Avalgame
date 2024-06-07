@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Avalgame.Views.GamePageView">
+	
+	<Canvas Name="RootCanv" x:CompileBindings="False">
+
+		<Canvas Name="PlainCanv">
+			<!--普通样式，日常演出用排版-->
+			
+			<Image Name="BackgroundImg"/>
+			
+			<Canvas Name="TextCanv">
+				<Canvas Name="NameCanv">
+					<TextBlock Name="NameText"/>
+				</Canvas>
+				<Canvas Name="DialogCanv">
+					<TextBlock Name="DialogText"/>
+				</Canvas>
+			</Canvas>
+			
+		</Canvas>
+		
+	</Canvas>
+	
+</UserControl>
