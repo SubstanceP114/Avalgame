@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Avalgame.ViewModels
+namespace Avalgame.Models
 {
-    public partial class GamePageViewModel : ViewModelBase
+    public class ImageInfo
     {
 
     }
