@@ -14,10 +14,9 @@ namespace Avalgame.Models
     {
         private static string PATH => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "savedata.json");
         /// <summary>
-        /// 从<see cref="PATH"/>反序列化存档
+        /// 存档单例
         /// </summary>
-        /// <returns>存档信息，若读取失败则新建存档</returns>
-        public static Archive Deserialize() => JsonSerializer.Deserialize<Archive>(File.ReadAllText(PATH)) ?? new();
+        public static Archive Instance { get; } = JsonSerializer.Deserialize<Archive>(File.ReadAllText(PATH)) ?? new();
         /// <summary>
         /// 向<see cref="PATH"/>序列化当前存档内容
         /// </summary>
