@@ -31,6 +31,10 @@ namespace Avalgame.Models
         /// </summary>
         public void Save() => Datas.Add(Current);
         /// <summary>
+        /// 记录玩家设置
+        /// </summary>
+        public PlayerPref Pref { get; set; }
+        /// <summary>
         /// 记录全存档共通的数据
         /// </summary>
         public Dictionary<string, int> Global { get; set; }
@@ -47,6 +51,7 @@ namespace Avalgame.Models
         /// </summary>
         public Archive()
         {
+            Pref = new PlayerPref();
             Global = new();
             Current = new Local();
             Datas = new();
