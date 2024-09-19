@@ -10,8 +10,8 @@ namespace StoryParser.Extension
         static Commands()
         {
             state = LineState.Processed;
-            Executor.LineProcessing += state = LineState.Processing;
-            Executor.LineProcessed += state = LineState.Processed;
+            Executor.LineProcessing += x => state = LineState.Processing;
+            Executor.LineProcessed += x => state = LineState.Processed;
         }
         private static GamePageViewModel Current => GamePageViewModel.Instance;
         private enum LineState { Processing, Accelerating, Processed }
