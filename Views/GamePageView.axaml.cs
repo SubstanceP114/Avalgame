@@ -26,14 +26,19 @@ namespace Avalgame.Views
         private void InitView()
         {
             #region RootCanv
-            RootCanv.Width = screenWidth;
-            RootCanv.Height = screenHeight;
+            RootCanv.Full();
+            #endregion
+            #region PlainCanv
+            PlainCanv.Full();
             #endregion
             #region BackgroundImg
             BackgroundImg.Width = screenWidth;
             BackgroundImg.Height = screenHeight;
             BackgroundImg.Stretch = Avalonia.Media.Stretch.Fill;
             BackgroundImg.ZIndex = ZIdxLow;
+            #endregion
+            #region TextCanv
+            TextCanv.Full();
             #endregion
             #region NameCanv
             Canvas.SetBottom(NameCanv, dialogHeight);
@@ -43,7 +48,7 @@ namespace Avalgame.Views
             NameCanv.ZIndex = ZIdxHigh;
             #endregion
             #region NameText
-            NameText.Width = screenWidth;
+            NameText.Width = nameWidth;
             NameText.Height = nameHeight;
             NameText.Opacity = 2;
             NameText.FontSize = 24;
@@ -64,6 +69,11 @@ namespace Avalgame.Views
             DialogText.FontSize = 20;
             DialogText.Margin = new Thickness(dialogMarginX, dialogMarginY);
             #endregion
+        }
+        private void FullCanvas(Canvas canvas)
+        {
+            canvas.Width = screenWidth;
+            canvas.Height = screenHeight;
         }
     }
 }

@@ -13,11 +13,13 @@
 			<Image Name="BackgroundImg"/>
 			
 			<Canvas Name="TextCanv">
-				<Canvas Name="NameCanv">
-					<TextBlock Name="NameText"/>
+				<Canvas Name="NameCanv"
+						Background="Aquamarine">
+					<TextBlock Name="NameText" Text="结城希亚"/>
 				</Canvas>
-				<Canvas Name="DialogCanv">
-					<TextBlock Name="DialogText"/>
+				<Canvas Name="DialogCanv"
+						Background="Aqua">
+					<TextBlock Name="DialogText" Text="我喜欢芭菲"/>
 				</Canvas>
 			</Canvas>
 			

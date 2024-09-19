@@ -12,15 +12,15 @@ namespace Avalgame.Views
         {
             instance = this;
             InitializeComponent();
-            OnLoad();
             WindowState = WindowState.FullScreen;
+            OnLoad();
         }
         public static int ScreenHeight { get; private set; }
         public static int ScreenWidth { get; private set; }
         private void OnLoad()
         {
-            ScreenHeight = Screens.All[0].WorkingArea.Height;
-            ScreenWidth = Screens.All[0].WorkingArea.Width;
+            ScreenHeight = Screens.Primary!.WorkingArea.Height;
+            ScreenWidth = Screens.Primary!.WorkingArea.Width;
         }
     }
 }
