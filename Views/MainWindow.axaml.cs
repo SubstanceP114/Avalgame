@@ -17,12 +17,13 @@ namespace Avalgame.Views
             WindowState = WindowState.FullScreen;
             OnLoad();
         }
-        public static int ScreenHeight { get; private set; }
-        public static int ScreenWidth { get; private set; }
+        public static double ScreenHeight { get; private set; }
+        public static double ScreenWidth { get; private set; }
         private void OnLoad()
         {
-            ScreenHeight = Screens.Primary!.WorkingArea.Height;
-            ScreenWidth = Screens.Primary!.WorkingArea.Width;
+            var screen = Screens.Primary;
+            ScreenHeight = screen!.WorkingArea.Height / screen!.Scaling;
+            ScreenWidth = screen!.WorkingArea.Width / screen!.Scaling;
 
             Provider.Data = new DataProvider();
             Provider.Log = new LogProvider();

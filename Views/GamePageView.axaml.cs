@@ -67,6 +67,8 @@ namespace Avalgame.Views
             DialogText.Opacity = 4;
             DialogText.FontSize = 20;
             DialogText.Margin = new Thickness(dialogMarginX, dialogMarginY);
+            DialogText.TextAlignment = Avalonia.Media.TextAlignment.Start;
+            DialogText.FontWeight = Avalonia.Media.FontWeight.Normal;
             #endregion
         }
     }
