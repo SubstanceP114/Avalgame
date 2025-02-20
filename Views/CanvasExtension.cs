@@ -7,7 +7,7 @@ namespace Avalgame.Views
         public static void Full(this Canvas canvas)
         {
             canvas.Width = MainWindow.ScreenWidth;
-            canvas.Height=MainWindow.ScreenHeight;
+            canvas.Height = MainWindow.ScreenHeight;
         }
     }
 }

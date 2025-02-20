@@ -10,7 +10,7 @@ namespace Avalgame.Models
     /// </summary>
     public class Archive
     {
-        private static string PATH => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "savedata.json");
+        private static string PATH => Path.Combine(Environment.CurrentDirectory, "savedata.json");
         /// <summary>
         /// 存档单例
         /// </summary>
@@ -33,9 +33,13 @@ namespace Avalgame.Models
         /// </summary>
         public PlayerPref Pref { get; set; }
         /// <summary>
-        /// 记录全存档共通的数据
+        /// 记录全存档共通的int数据
         /// </summary>
-        public Dictionary<string, int> Global { get; set; }
+        public Dictionary<string, int> GlobalInt { get; set; }
+        /// <summary>
+        /// 记录全存档共通的string数据
+        /// </summary>
+        public Dictionary<string, string> GlobalString { get; set; }
         /// <summary>
         /// 当前存档数据
         /// </summary>
@@ -50,28 +54,22 @@ namespace Avalgame.Models
         public Archive()
         {
             Pref = new PlayerPref();
-            Global = new();
+            GlobalInt = new();
+            GlobalString = new();
             Current = new Local();
             Datas = new();
         }
-        /// <summary>
-        /// <see cref="Global"/>的索引，用于更方便地访问到数据
-        /// </summary>
-        /// <param name="key">条件名称</param>
-        /// <returns>条件对应状态，若查询不到则返回-1</returns>
-        public int this[string key]
-        {
-            get
-            {
-                if (Global.TryGetValue(key, out int value)) return value;
-                if (Current.Data.TryGetValue(key, out value)) return value;
-                return -1;
-            }
-        }
+        public int GetInt(string key)
+            => GlobalInt.TryGetValue(key, out int value) ||
+            Current.IntData.TryGetValue(key, out value) ? value : -1;
+        public string GetString(string key)
+            => GlobalString.TryGetValue(key, out string value) ||
+            Current.StringData.TryGetValue(key, out value) ? value : string.Empty;
         public struct Local
         {
             public LogInfo Log { get; set; }
-            public Dictionary<string, int> Data { get; set; }
+            public Dictionary<string, int> IntData { get; set; }
+            public Dictionary<string, string> StringData { get; set; }
         }
     }
 }

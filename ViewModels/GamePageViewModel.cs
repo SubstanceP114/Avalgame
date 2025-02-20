@@ -1,6 +1,6 @@
 ﻿using Avalgame.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
-using StoryParser.Core.Util;
+using StoryTable;
 using System;
 using System.Collections.Generic;
 using System.Linq;

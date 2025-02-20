@@ -1,6 +1,5 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
 namespace Avalgame.Views
 {
@@ -69,11 +68,6 @@ namespace Avalgame.Views
             DialogText.FontSize = 20;
             DialogText.Margin = new Thickness(dialogMarginX, dialogMarginY);
             #endregion
-        }
-        private void FullCanvas(Canvas canvas)
-        {
-            canvas.Width = screenWidth;
-            canvas.Height = screenHeight;
         }
     }
 }

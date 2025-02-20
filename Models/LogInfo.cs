@@ -1,4 +1,4 @@
-﻿using StoryParser.Core.Util;
+﻿using StoryTable;
 using System.Collections.Generic;
 
 namespace Avalgame.Models

@@ -1,6 +1,8 @@
+using Avalgame.Providers;
 using Avalgame.ViewModels;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
+using StoryTable;
 
 namespace Avalgame.Views
 {
@@ -21,6 +23,9 @@ namespace Avalgame.Views
         {
             ScreenHeight = Screens.Primary!.WorkingArea.Height;
             ScreenWidth = Screens.Primary!.WorkingArea.Width;
+
+            Provider.Data = new DataProvider();
+            Provider.Log = new LogProvider();
         }
     }
 }

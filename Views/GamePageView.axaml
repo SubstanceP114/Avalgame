@@ -14,7 +14,7 @@
 			
 			<Canvas Name="TextCanv">
 				<Canvas Name="NameCanv"
-						Background="Aquamarine">
+						Background="Aqua">
 					<TextBlock Name="NameText" Text="结城希亚"/>
 				</Canvas>
 				<Canvas Name="DialogCanv"
