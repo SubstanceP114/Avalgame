@@ -2,12 +2,12 @@
 
 namespace Avalgame.Views
 {
-    public static class CanvasExtension
+    public static class ControlExtension
     {
-        public static void Full(this Canvas canvas)
+        public static void Full(this Control control)
         {
-            canvas.Width = MainWindow.ScreenWidth;
-            canvas.Height = MainWindow.ScreenHeight;
+            control.Width = MainWindow.ScreenWidth;
+            control.Height = MainWindow.ScreenHeight;
         }
     }
 }

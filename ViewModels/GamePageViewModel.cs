@@ -1,5 +1,8 @@
 ﻿using Avalgame.Models;
+using Avalgame.Views;
+using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using StoryTable;
 using System;
 using System.Collections.Generic;
@@ -11,19 +14,22 @@ namespace Avalgame.ViewModels
 {
     public partial class GamePageViewModel : ViewModelBase
     {
-        private static GamePageViewModel? instance;
-        public static GamePageViewModel Instance => instance!;
+        public static GamePageViewModel? Instance { get; private set; }
         public GamePageViewModel()
         {
-            instance = this;
+            Instance = this;
+            executor = new();
             Imgs = new();
         }
+        private readonly Executor executor;
         /// <summary>
         /// 位于脚本文件位置
         /// </summary>
         public Locator Position { get; set; }
         [ObservableProperty]
         private string? _bgSrc;
+        [ObservableProperty]
+        private Bitmap? _bgImg;
         /// <summary>
         /// 背景音乐路径
         /// </summary>
@@ -31,12 +37,18 @@ namespace Avalgame.ViewModels
         /// <summary>
         /// 贴图信息
         /// </summary>
-        public List<ImageInfo>? Imgs { get; set; }
+        public List<SpriteInfo>? Imgs { get; set; }
         [ObservableProperty]
         private string? character;
         [ObservableProperty]
         private string? sprite;
         [ObservableProperty]
         private string? dialogue;
+
+        [RelayCommand]
+        private void Next()
+        {
+            executor.Execute();
+        }
     }
 }

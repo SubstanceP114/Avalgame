@@ -1,12 +1,16 @@
+using Avalgame.Helpers;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Media;
 
 namespace Avalgame.Views
 {
     public partial class GamePageView : UserControl
     {
+        public static GamePageView? Instance {  get; private set; }
         public GamePageView()
         {
+            Instance = this;
             InitializeComponent();
             InitView();
         }
@@ -33,7 +37,7 @@ namespace Avalgame.Views
             #region BackgroundImg
             BackgroundImg.Width = screenWidth;
             BackgroundImg.Height = screenHeight;
-            BackgroundImg.Stretch = Avalonia.Media.Stretch.Fill;
+            BackgroundImg.Stretch = Stretch.Fill;
             BackgroundImg.ZIndex = ZIdxLow;
             #endregion
             #region TextCanv
@@ -51,8 +55,8 @@ namespace Avalgame.Views
             NameText.Height = nameHeight;
             NameText.Opacity = 2;
             NameText.FontSize = 24;
-            NameText.TextAlignment = Avalonia.Media.TextAlignment.Center;
-            NameText.FontWeight = Avalonia.Media.FontWeight.Bold;
+            NameText.TextAlignment = TextAlignment.Center;
+            NameText.FontWeight = FontWeight.Bold;
             #endregion
             #region DialogCanv
             Canvas.SetBottom(DialogCanv, 0);
@@ -67,8 +71,16 @@ namespace Avalgame.Views
             DialogText.Opacity = 4;
             DialogText.FontSize = 20;
             DialogText.Margin = new Thickness(dialogMarginX, dialogMarginY);
-            DialogText.TextAlignment = Avalonia.Media.TextAlignment.Start;
-            DialogText.FontWeight = Avalonia.Media.FontWeight.Normal;
+            DialogText.TextAlignment = TextAlignment.Start;
+            DialogText.FontWeight = FontWeight.Normal;
+            #endregion
+            #region SpriteCanv
+            SpriteCanv.Full();
+            #endregion
+            #region ScrBtn
+            ScrBtn.Full();
+            ScrBtn.Opacity = 0;
+            ScrBtn.ZIndex = ZIdxLow;
             #endregion
         }
     }

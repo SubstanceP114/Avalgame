@@ -9,11 +9,10 @@ namespace Avalgame.ViewModels
     public enum Page { Home, Game }
     public partial class MainWindowViewModel : ViewModelBase
     {
-        private static MainWindowViewModel? instance;
-        public static MainWindowViewModel Instance => instance!;
+        public static MainWindowViewModel? Instance { get; private set; }
         public MainWindowViewModel()
         {
-            instance = this;
+            Instance = this;
             pages = new(){
                 { Page.Home, new HomePageViewModel() },
                 { Page.Game, new GamePageViewModel() } };

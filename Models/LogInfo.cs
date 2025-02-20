@@ -23,7 +23,7 @@ namespace Avalgame.Models
         /// <summary>
         /// 贴图信息
         /// </summary>
-        public List<ImageInfo> Imgs { get; set; }
+        public List<SpriteInfo> Imgs { get; set; }
         /// <summary>
         /// 当前讲话人物名称
         /// </summary>

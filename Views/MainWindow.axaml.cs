@@ -14,7 +14,7 @@ namespace Avalgame.Views
         {
             instance = this;
             InitializeComponent();
-            WindowState = WindowState.FullScreen;
+            WindowState = WindowState.Maximized;
             OnLoad();
         }
         public static double ScreenHeight { get; private set; }
@@ -24,6 +24,9 @@ namespace Avalgame.Views
             var screen = Screens.Primary;
             ScreenHeight = screen!.WorkingArea.Height / screen!.Scaling;
             ScreenWidth = screen!.WorkingArea.Width / screen!.Scaling;
+
+            MinHeight = MaxHeight = ScreenHeight;
+            MinWidth = MaxWidth = ScreenWidth;
 
             Provider.Data = new DataProvider();
             Provider.Log = new LogProvider();

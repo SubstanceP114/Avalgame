@@ -14,14 +14,18 @@
 			
 			<Canvas Name="TextCanv">
 				<Canvas Name="NameCanv"
-						Background="Aqua">
+						Background="AliceBlue">
 					<TextBlock Name="NameText" Text="结城希亚"/>
 				</Canvas>
 				<Canvas Name="DialogCanv"
-						Background="Aqua">
+						Background="AliceBlue">
 					<TextBlock Name="DialogText" Text="我喜欢芭菲"/>
 				</Canvas>
 			</Canvas>
+			
+			<Canvas Name="SpriteCanv"/>
+			
+			<Button Name="ScrBtn" Command="{Binding NextCommand}"/>
 			
 		</Canvas>
 		
