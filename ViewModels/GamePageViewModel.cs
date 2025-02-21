@@ -47,7 +47,7 @@ namespace Avalgame.ViewModels
         [ObservableProperty]
         private string? sprite;
         [ObservableProperty]
-        public string? dialogue;
+        private string? dialogue;
 
         [RelayCommand]
         private void Next()
