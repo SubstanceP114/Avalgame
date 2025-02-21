@@ -21,9 +21,9 @@ namespace Avalgame.Models
         /// </summary>
         public string BgMsc { get; set; }
         /// <summary>
-        /// 贴图信息
+        /// 人物立绘路径
         /// </summary>
-        public List<SpriteInfo> Imgs { get; set; }
+        public string[] Imgs { get; set; }
         /// <summary>
         /// 当前讲话人物名称
         /// </summary>

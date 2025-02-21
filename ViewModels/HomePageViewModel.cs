@@ -14,7 +14,7 @@ namespace Avalgame.ViewModels
     public partial class HomePageViewModel : ViewModelBase
     {
         [RelayCommand]
-        private void Start() => MainWindowViewModel.Instance.ChangePage(Page.Game);
+        private void Start() => MainWindowViewModel.Instance!.ChangePage(Page.Game);
         [RelayCommand]
         private void Exit() => MainWindow.Instance.Close();
     }

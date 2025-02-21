@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Avalgame.Models
 {
-    internal class SpritePool
+    public class SpritePool
     {
         public int Capacity { get; init; }
         private readonly SpriteInfo[] sprites;

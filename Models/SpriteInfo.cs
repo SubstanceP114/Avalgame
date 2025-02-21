@@ -15,7 +15,7 @@ namespace Avalgame.Models
         private const string PATH = "avares://Avalgame/Assets/Images/Characters";
         public SpriteInfo(string src, Rect rect, float rotation = 0, float transparency = 0)
         {
-            var temp = src.Split('-');
+            var temp = src.Split('/');
             Character = temp[0];
             Difference = temp[1];
             Init(rect, rotation, transparency);

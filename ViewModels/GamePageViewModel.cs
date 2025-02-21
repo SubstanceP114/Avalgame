@@ -1,6 +1,8 @@
-﻿using Avalgame.Models;
+﻿using Avalgame.Helpers;
+using Avalgame.Models;
 using Avalgame.Views;
 using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using StoryTable;
@@ -19,7 +21,11 @@ namespace Avalgame.ViewModels
         {
             Instance = this;
             executor = new();
-            Imgs = new();
+            Sprites = new(5);
+
+            BgImg = ImageHelper.LoadFromResource(new Uri("avares://Avalgame/Assets/Images/Noa.jpg"));
+            IntermediateFile.Load("Test", AssetLoader.Open(new Uri("avares://Avalgame/Assets/Scripts/Test.CSV")), Encoding.UTF8);
+            executor.Locate("Test");
         }
         private readonly Executor executor;
         /// <summary>
@@ -27,9 +33,7 @@ namespace Avalgame.ViewModels
         /// </summary>
         public Locator Position { get; set; }
         [ObservableProperty]
-        private string? _bgSrc;
-        [ObservableProperty]
-        private Bitmap? _bgImg;
+        private Bitmap? bgImg;
         /// <summary>
         /// 背景音乐路径
         /// </summary>
@@ -37,13 +41,13 @@ namespace Avalgame.ViewModels
         /// <summary>
         /// 贴图信息
         /// </summary>
-        public List<SpriteInfo>? Imgs { get; set; }
+        public SpritePool Sprites { get; set; }
         [ObservableProperty]
         private string? character;
         [ObservableProperty]
         private string? sprite;
         [ObservableProperty]
-        private string? dialogue;
+        public string? dialogue;
 
         [RelayCommand]
         private void Next()

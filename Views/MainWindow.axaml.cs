@@ -30,6 +30,7 @@ namespace Avalgame.Views
 
             Provider.Data = new DataProvider();
             Provider.Log = new LogProvider();
+            Provider.Visual = new VisualProvider();
         }
     }
 }

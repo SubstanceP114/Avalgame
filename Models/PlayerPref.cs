@@ -5,6 +5,13 @@
     /// </summary>
     public struct PlayerPref
     {
+        public PlayerPref()
+        {
+            TextInterval = 20;
+            MusicVolume = 1;
+            VoiceVolume = 1;
+            SoundVolume = 1;
+        }
         /// <summary>
         /// 文字显示时间间隔（毫秒）
         /// </summary>
