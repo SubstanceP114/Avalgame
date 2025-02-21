@@ -42,6 +42,7 @@ namespace Avalgame.Views
             #endregion
             #region TextCanv
             TextCanv.Full();
+            TextCanv.ZIndex = ZIdxHigh;
             #endregion
             #region NameCanv
             Canvas.SetBottom(NameCanv, dialogHeight);
@@ -76,6 +77,7 @@ namespace Avalgame.Views
             #endregion
             #region SpriteCanv
             SpriteCanv.Full();
+            SpriteCanv.ZIndex = ZIdxMid;
             #endregion
             #region ScrBtn
             ScrBtn.Full();

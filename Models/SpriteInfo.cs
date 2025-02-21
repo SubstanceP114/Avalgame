@@ -13,14 +13,14 @@ namespace Avalgame.Models
     public class SpriteInfo
     {
         private const string PATH = "avares://Avalgame/Assets/Images/Characters";
-        public SpriteInfo(string src, Rect rect, float rotation, float transparency)
+        public SpriteInfo(string src, Rect rect, float rotation = 0, float transparency = 0)
         {
             var temp = src.Split('-');
             Character = temp[0];
             Difference = temp[1];
             Init(rect, rotation, transparency);
         }
-        public SpriteInfo(string character, string difference, Rect rect, float rotation, float transparency)
+        public SpriteInfo(string character, string difference, Rect rect, float rotation = 0, float transparency = 0)
         {
             Character = character;
             Difference = difference;
@@ -36,6 +36,7 @@ namespace Avalgame.Models
             {
                 Source = ImageHelper.LoadFromResource(new Uri($"{PATH}/{Character}/{Difference}")),
                 Stretch = Stretch.Fill,
+                Opacity = 1 - Transparency,
                 RenderTransform = new TransformGroup
                 {
                     Children =
@@ -58,5 +59,17 @@ namespace Avalgame.Models
 
         public void Show() => GamePageView.Instance!.SpriteCanv.Children.Add(img!);
         public void Hide() => GamePageView.Instance!.SpriteCanv.Children.Remove(img!);
+        public void Update()
+        {
+            img!.Opacity = 1 - Transparency;
+            img.RenderTransform = new TransformGroup
+            {
+                Children =
+                {
+                    new TranslateTransform(Rect.Center.X, Rect.Center.Y),
+                    new RotateTransform(Rotation),
+                },
+            };
+        }
     }
 }
