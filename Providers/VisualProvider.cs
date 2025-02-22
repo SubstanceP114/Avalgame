@@ -23,7 +23,7 @@ namespace Avalgame.Providers
             foreach (var word in dialogue)
             {
                 if (executor.Skip) break;
-                await Task.Delay(20);
+                await Task.Delay(Archive.Instance.Pref.TextInterval);
                 GamePageViewModel.Instance.Dialogue += word;
             }
             GamePageViewModel.Instance.Dialogue = dialogue;

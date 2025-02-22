@@ -11,10 +11,19 @@ namespace Avalgame.Models
     public class Archive
     {
         private static string PATH => Path.Combine(Environment.CurrentDirectory, "savedata.json");
+        private static Archive? instance;
         /// <summary>
         /// 存档单例
         /// </summary>
-        public static Archive Instance { get; } = JsonSerializer.Deserialize<Archive>(File.ReadAllText(PATH)) ?? new();
+        public static Archive Instance
+        {
+            get
+            {
+                instance ??= File.Exists(PATH) ?
+                    JsonSerializer.Deserialize<Archive>(File.ReadAllText(PATH)) ?? new() : new();
+                return instance;
+            }
+        }
         /// <summary>
         /// 向<see cref="PATH"/>序列化当前存档内容
         /// </summary>
@@ -54,16 +63,16 @@ namespace Avalgame.Models
         public Archive()
         {
             Pref = new PlayerPref();
-            GlobalInt = new();
-            GlobalString = new();
+            GlobalInt = [];
+            GlobalString = [];
             Current = new Local();
-            Datas = new();
+            Datas = [];
         }
         public int GetInt(string key)
             => GlobalInt.TryGetValue(key, out int value) ||
             Current.IntData.TryGetValue(key, out value) ? value : -1;
         public string GetString(string key)
-            => GlobalString.TryGetValue(key, out string value) ||
+            => GlobalString.TryGetValue(key, out string? value) ||
             Current.StringData.TryGetValue(key, out value) ? value : string.Empty;
         public struct Local
         {
