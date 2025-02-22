@@ -23,6 +23,7 @@ namespace Avalgame.Views
         private readonly int ZIdxLow = 86;
         private readonly int ZIdxMid = 100;
         private readonly int ZIdxHigh = 114;
+        private readonly int ZIdxLevel = 100;
         private readonly int dialogMarginX = 32;
         private readonly int dialogMarginY = 32;
         #endregion
@@ -82,7 +83,7 @@ namespace Avalgame.Views
             #region ScrBtn
             ScrBtn.Full();
             ScrBtn.Opacity = 0;
-            ScrBtn.ZIndex = ZIdxLow;
+            ScrBtn.ZIndex = ZIdxLow + ZIdxLevel;
             #endregion
         }
     }
