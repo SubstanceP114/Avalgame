@@ -13,9 +13,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Assets\Images\Characters\" />
 		<Folder Include="Assets\Images\Backgrounds\" />
 		<AvaloniaResource Include="Assets\**" />
+		<Folder Include="Assets\Images\Characters\r\" />
+		<Folder Include="Assets\Images\Characters\g\" />
+		<Folder Include="Assets\Images\Characters\b\" />
 		<Folder Include="Assets\Musics\" />
 		<Folder Include="Assets\Voices\" />
 	</ItemGroup>

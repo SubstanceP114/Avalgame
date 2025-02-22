@@ -62,7 +62,7 @@ namespace Avalgame.Models
             void Process(int idx)
             {
                 Rect temp = this[idx].Rect;
-                this[idx].Rect = new(Interval * (.5 + pos++), temp.Center.Y, temp.Width, temp.Height);
+                this[idx].Rect = new(Interval * (.5 + pos++) - temp.Width, temp.Top, temp.Width, temp.Height);
                 this[idx].Update();
             }
             for (int i = 0; i < Count; i += 2) Process(i);

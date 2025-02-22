@@ -35,6 +35,9 @@ namespace Avalgame.Models
             img = new Image
             {
                 Source = ImageHelper.LoadFromResource(new Uri($"{PATH}/{Character}/{Difference}")),
+
+                Width = rect.Width,
+                Height = rect.Height,
                 Stretch = Stretch.Fill,
                 Opacity = 1 - Transparency,
                 RenderTransform = new TransformGroup
