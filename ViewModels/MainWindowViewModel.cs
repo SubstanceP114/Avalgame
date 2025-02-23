@@ -25,6 +25,6 @@ namespace Avalgame.ViewModels
         /// 切换页面的方法
         /// </summary>
         /// <param name="target">目标页面</param>
-        public void ChangePage(Page target) => CurPage = pages[target];
+        public void ChangePage(Page target) => (CurPage = pages[target]).Init();
     }
 }

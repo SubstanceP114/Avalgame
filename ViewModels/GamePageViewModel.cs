@@ -25,11 +25,9 @@ namespace Avalgame.ViewModels
 
             executor.Locate("Test");
         }
+        public override void Init() => executor.Execute();
+
         private readonly Executor executor;
-        /// <summary>
-        /// 位于脚本文件位置
-        /// </summary>
-        public Locator Position { get; set; }
 
         [ObservableProperty]
         private Bitmap? bgImg;
@@ -37,10 +35,12 @@ namespace Avalgame.ViewModels
         /// 背景音乐路径
         /// </summary>
         public string? BgMsc { get; set; }
+
         /// <summary>
         /// 贴图信息
         /// </summary>
         public SpritePool Sprites { get; set; }
+
         [ObservableProperty]
         private string? character;
         [ObservableProperty]

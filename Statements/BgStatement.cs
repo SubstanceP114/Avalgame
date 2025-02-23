@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 namespace Avalgame.Statements
 {
     [Statement("BG")]
-    public class Background : Statement
+    public class BgStatement : Statement
     {
         private readonly string src;
-        public Background(ArgParser parser) : base(parser)
+        public BgStatement(ArgParser parser) : base(parser)
         {
             src = parser.String();
         }
