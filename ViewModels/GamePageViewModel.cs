@@ -21,10 +21,8 @@ namespace Avalgame.ViewModels
         {
             Instance = this;
             executor = new();
-            Sprites = new(5);
+            Sprites = new(2);
 
-            BgImg = ImageHelper.LoadFromResource(new Uri("avares://Avalgame/Assets/Images/Noa.jpg"));
-            //IntermediateFile.Load("Test", AssetLoader.Open(new Uri("avares://Avalgame/Assets/Scripts/Test.CSV")), Encoding.UTF8);
             executor.Locate("Test");
         }
         private readonly Executor executor;
@@ -32,6 +30,7 @@ namespace Avalgame.ViewModels
         /// 位于脚本文件位置
         /// </summary>
         public Locator Position { get; set; }
+
         [ObservableProperty]
         private Bitmap? bgImg;
         /// <summary>
