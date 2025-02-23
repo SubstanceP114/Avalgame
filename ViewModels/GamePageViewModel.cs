@@ -24,7 +24,7 @@ namespace Avalgame.ViewModels
             Sprites = new(5);
 
             BgImg = ImageHelper.LoadFromResource(new Uri("avares://Avalgame/Assets/Images/Noa.jpg"));
-            IntermediateFile.Load("Test", AssetLoader.Open(new Uri("avares://Avalgame/Assets/Scripts/Test.CSV")), Encoding.UTF8);
+            //IntermediateFile.Load("Test", AssetLoader.Open(new Uri("avares://Avalgame/Assets/Scripts/Test.CSV")), Encoding.UTF8);
             executor.Locate("Test");
         }
         private readonly Executor executor;

@@ -29,6 +29,7 @@ namespace Avalgame.Views
             MinWidth = MaxWidth = ScreenWidth;
 
             Provider.Data = new DataProvider();
+            Provider.File = new FileProvider();
             Provider.Log = new LogProvider();
             Provider.Visual = new VisualProvider();
         }
