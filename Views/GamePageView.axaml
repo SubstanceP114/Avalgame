@@ -4,14 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Avalgame.Views.GamePageView">
-	
+
 	<Canvas Name="RootCanv" x:CompileBindings="False">
 
 		<Canvas Name="PlainCanv">
 			<!--普通样式，日常演出用排版-->
-			
+
 			<Image Name="BackgroundImg" Source="{Binding BgImg}"/>
-			
+
 			<Canvas Name="TextCanv">
 				<Canvas Name="NameCanv"
 						Background="AliceBlue">
@@ -22,14 +22,46 @@
 					<TextBlock Name="DialogText" Text="{Binding Dialogue}"/>
 				</Canvas>
 			</Canvas>
-			
+
 			<Canvas Name="SpriteCanv"/>
 			<StackPanel Name="OptionPanel"/>
-			
+
 			<Button Name="ScrBtn" Command="{Binding NextCommand}"/>
+
+			<StackPanel Name="BtnPanel" Orientation="Horizontal" Background="AliceBlue">
+				<Button Name="LogBtnShow" Command="{Binding ShowLogCommand}"/>
+			</StackPanel>
 			
+			<Button Name="LogBtnHide" Command="{Binding HideLogCommand}"
+					IsEnabled="{Binding #LogView.IsEnabled}"
+					IsVisible="{Binding #LogView.IsVisible}"/>
+
+			<ScrollViewer Name="LogView" Background="AliceBlue">
+				<StackPanel>
+					<ListBox Name="LogList" Background="AliceBlue"
+							 ItemsSource="{Binding Records}"
+							 SelectedIndex="{Binding SelectedRecordIdx}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<TextBlock Height="{Binding #NameText.Height}"
+											   FontSize="{Binding #NameText.FontSize}"
+											   FontWeight="{Binding #NameText.FontWeight}"
+											   Text="{Binding Log.Character}"/>
+									<TextBlock Height="{Binding #DialogText.Height}"
+									 		   FontSize="{Binding #DialogText.FontSize}"
+											   Margin="{Binding #DialogText.Margin}"
+											   TextWrapping="Wrap"
+											   Text="{Binding Log.Dialogue}"/>
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</StackPanel>
+			</ScrollViewer>
+
 		</Canvas>
-		
+
 	</Canvas>
-	
+
 </UserControl>

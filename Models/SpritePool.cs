@@ -12,29 +12,39 @@ namespace Avalgame.Models
     public class SpritePool
     {
         public int Capacity { get; init; }
-        public string[] Srcs { get; init; }
 
         private readonly SpriteInfo[] sprites;
         public SpriteInfo this[int idx]
         {
             get => sprites[(head + idx) % Capacity];
-            set
-            {
-                sprites[(head + idx) % Capacity] = value;
-                Srcs[(head + idx) % Capacity] = $"{value.Character}/{value.Difference}";
-            }
+            set => sprites[(head + idx) % Capacity] = value;
         }
 
         private int head, tail;
         private int Count => tail - head;
         private double Interval => MainWindow.ScreenWidth / Count;
 
+        public string[] GetSrcs()
+        {
+            var srcs = new string[Capacity];
+            for (int i = 0; i < Count; i++)
+                    srcs[i] = $"{this[i].Character}/{this[i].Difference}";
+            return srcs;
+        }
+
         public SpritePool(int capacity)
         {
             Capacity = capacity;
-            Srcs = new string[Capacity];
             sprites = new SpriteInfo[capacity];
             head = tail = 0;
+        }
+        public SpritePool(string[] srcs)
+        {
+            Capacity = srcs.Length;
+            sprites = new SpriteInfo[Capacity];
+            head = tail = 0;
+            foreach (var src in srcs)
+                if (src != null) Add(src);
         }
 
         public void Clear()
@@ -65,6 +75,7 @@ namespace Avalgame.Models
             }
             return false;
         }
+
         public void Add(string src) => Add(new SpriteInfo(src));
         public void Add(SpriteInfo sprite)
         {

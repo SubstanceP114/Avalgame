@@ -9,6 +9,8 @@ using CommunityToolkit.Mvvm.Input;
 using StoryTable;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,20 +30,69 @@ namespace Avalgame.ViewModels
             executor.Provider.File = new FileProvider();
             executor.Provider.Visual = new VisualProvider();
 
+            executor.Locate("Test");
+
             Sprites = new(2);
 
-            executor.Locate("Test");
+            Records = [];
         }
         public override void Init() => executor.Execute();
 
         private readonly ExecutorImpl executor;
 
         [ObservableProperty]
+        public ObservableCollection<Archive.Local> records;
+        [ObservableProperty]
+        private int selectedRecordIdx;
+        partial void OnSelectedRecordIdxChanged(int value)
+        {
+            if (!GamePageView.Instance!.LogView.IsEnabled || value < 0 || value >= Records.Count) return;
+            HideLog();
+            Goto((Archive.Instance.Current = Records[value]).Log);
+            Records = new(Records.Take(value + 1));
+        }
+        private void Goto(LogInfo info)
+        {
+            Sprites.Clear();
+
+            GamePageView.Instance!.OptionPanel.Children.Clear();
+            GamePageView.Instance.ScrBtn.IsEnabled = true;
+            GamePageView.Instance.OptionPanel.Children.Add(new Avalonia.Controls.Shapes.Rectangle
+            {
+                Height = 0,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
+            });
+            var visual = executor.Provider.Visual as VisualProvider;
+            while (visual!.OptionCnt > 0)
+            {
+                visual.OptionCnt--;
+                executor.Complete();
+            }
+
+            executor.Locate(info.Position);
+            BgSrc = info.BgSrc;
+            BgMsc = info.BgMsc;
+            Sprites = new(info.Imgs);
+            AvatarSrc = info.AvatarSrc;
+            Character = info.Character;
+            Dialogue = info.Dialogue;
+        }
+        [RelayCommand]
+        private void ShowLog()
+        {
+            GamePageView.Instance!.LogView.IsVisible = GamePageView.Instance.LogView.IsEnabled = true;
+            SelectedRecordIdx = -1;
+        }
+        [RelayCommand]
+        private void HideLog() => GamePageView.Instance!.LogView.IsVisible = GamePageView.Instance.LogView.IsEnabled = false;
+
+
+        [ObservableProperty]
         private Bitmap? bgImg;
         /// <summary>
         /// 背景图片路径
         /// </summary>
-        public string? BgSrc {  get; set; }
+        public string? BgSrc { get; set; }
         /// <summary>
         /// 背景音乐路径
         /// </summary>
@@ -55,14 +106,16 @@ namespace Avalgame.ViewModels
         [ObservableProperty]
         private string? character;
         [ObservableProperty]
-        private string? sprite;
+        private Bitmap? avatar;
         [ObservableProperty]
         private string? dialogue;
 
+        /// <summary>
+        /// 头像路径
+        /// </summary>
+        public string? AvatarSrc { get; set; }
+
         [RelayCommand]
-        private void Next()
-        {
-            executor.Execute();
-        }
+        private void Next() => executor.Execute();
     }
 }

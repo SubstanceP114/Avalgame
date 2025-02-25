@@ -21,8 +21,8 @@ namespace Avalgame.Views
         public static double ScreenWidth { get; private set; }
         private void OnLoad()
         {
-            var screen = Screens.Primary;
-            ScreenHeight = screen!.WorkingArea.Height / screen!.Scaling;
+            var screen = Screens.All[0];
+            ScreenHeight = screen!.WorkingArea.Height / screen!.Scaling * .97;
             ScreenWidth = screen!.WorkingArea.Width / screen!.Scaling;
 
             MinHeight = MaxHeight = ScreenHeight;

@@ -1,4 +1,5 @@
-﻿using StoryTable;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using StoryTable;
 using System.Collections.Generic;
 
 namespace Avalgame.Models
@@ -15,11 +16,11 @@ namespace Avalgame.Models
         /// <summary>
         /// 背景图片路径
         /// </summary>
-        public string BgSrc { get; set; }
+        public string? BgSrc { get; set; }
         /// <summary>
         /// 背景音乐路径
         /// </summary>
-        public string BgMsc { get; set; }
+        public string? BgMsc { get; set; }
         /// <summary>
         /// 人物立绘路径
         /// </summary>
@@ -29,12 +30,12 @@ namespace Avalgame.Models
         /// </summary>
         public string? Character { get; set; }
         /// <summary>
-        /// 当前讲话人物贴图
+        /// 当前讲话人物头像
         /// </summary>
-        public string? Sprite { get; set; }
+        public string? AvatarSrc { get; set; }
         /// <summary>
         /// 当前台词
         /// </summary>
-        public string Dialogue { get; set; }
+        public string? Dialogue { get; set; }
     }
 }

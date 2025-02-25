@@ -2,6 +2,7 @@ using Avalgame.Helpers;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
+using Avalonia.Input;
 using Avalonia.Media;
 
 namespace Avalgame.Views
@@ -19,6 +20,8 @@ namespace Avalgame.Views
         #region Parameters
         private readonly double screenWidth = MainWindow.ScreenWidth;
         private readonly double nameWidth = MainWindow.ScreenWidth * .2;
+
+        private readonly double btnSize = MainWindow.ScreenWidth * .02;
 
         private readonly double screenHeight = MainWindow.ScreenHeight;
         private readonly double nameHeight = MainWindow.ScreenHeight * .03;
@@ -92,13 +95,50 @@ namespace Avalgame.Views
             ScrBtn.ZIndex = ZIdxLow + ZIdxLevel;
             #endregion
             #region OptionPanel
-            OptionPanel.Full();
+            OptionPanel.Height = screenHeight - nameHeight - dialogHeight;
+            OptionPanel.Width = screenWidth;
             OptionPanel.Children.Add(new Rectangle
             {
                 Height = 0,
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
             });
-            OptionPanel.ZIndex = ZIdxMid + ZIdxLevel;
+            OptionPanel.ZIndex = ZIdxLow + ZIdxLevel;
+            #endregion
+            #region BtnPanel
+            BtnPanel.Width = btnSize * BtnPanel.Children.Count;
+            BtnPanel.Height = btnSize;
+            BtnPanel.Opacity = .5;
+            BtnPanel.Margin = new Thickness
+                (MainWindow.ScreenWidth - BtnPanel.Width,
+                MainWindow.ScreenHeight - btnSize, 0, 0);
+            BtnPanel.ZIndex = ZIdxMid + ZIdxLevel;
+            #endregion
+            #region LogBtnShow
+            LogBtnShow.Width = btnSize;
+            LogBtnShow.Height = btnSize;
+            LogBtnShow.HotKey = new KeyGesture(Key.B);
+            #endregion
+            #region LogBtnHide
+            LogBtnHide.Width = btnSize;
+            LogBtnHide.Height = btnSize;
+            LogBtnHide.Margin = new Thickness
+                (MainWindow.ScreenWidth - btnSize, 0, 0, btnSize);
+            LogBtnHide.HotKey = new KeyGesture(Key.Escape);
+            LogBtnHide.HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Center;
+            LogBtnHide.VerticalContentAlignment = Avalonia.Layout.VerticalAlignment.Center;
+            LogBtnHide.Content = "X";
+            LogBtnHide.FontSize = btnSize * .5;
+            LogBtnHide.ZIndex = ZIdxHigh + ZIdxLevel;
+            #endregion
+            #region LogView
+            LogView.Full();
+            LogView.Opacity = .25;
+            LogView.AllowAutoHide = false;
+            LogView.IsVisible = LogView.IsEnabled = false;
+            LogView.ZIndex = ZIdxMid + ZIdxLevel;
+            #endregion
+            #region LogList
+            LogList.Opacity = 4;
             #endregion
         }
     }

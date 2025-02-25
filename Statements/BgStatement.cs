@@ -17,7 +17,7 @@ namespace Avalgame.Statements
         {
             src = parser.String();
         }
-        public override ExecuteMode Mode => ExecuteMode.Wait;
+        public override ExecuteMode Mode => ExecuteMode.Next;
         public override void Execute(ExecutorBase executor)
         {
             GamePageViewModel.Instance!.BgImg = ImageHelper.LoadBackground(src);

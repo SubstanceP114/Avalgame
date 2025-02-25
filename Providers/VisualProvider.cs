@@ -13,13 +13,13 @@ namespace Avalgame.Providers
 {
     internal class VisualProvider : IVisualProvider
     {
-        private int optionCnt;
+        public int OptionCnt { get; set; }
         public void Menu(string content, Locator target, ExecutorBase executor)
         {
             var v = GamePageView.Instance!;
 
             v.ScrBtn.IsEnabled = false;
-            optionCnt++;
+            OptionCnt++;
 
             var button = new Button
             {
@@ -34,22 +34,32 @@ namespace Avalgame.Providers
             {
                 v.ScrBtn.IsEnabled = true;
                 v.OptionPanel.Children.Clear();
-                while (optionCnt-- > 0) executor.Complete();
+                v.OptionPanel.Children.Add(new Avalonia.Controls.Shapes.Rectangle
+                {
+                    Height = 0,
+                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
+                });
+
+                while (OptionCnt > 0)
+                {
+                    executor.Complete();
+                    OptionCnt--;
+                }
 
                 executor.Locate(target);
                 executor.Execute();
             };
             v.OptionPanel.Children.Add(button);
 
-            var totalSpacing = v.RootCanv.Height - v.NameCanv.Height - v.DialogCanv.Height - button.Height * optionCnt;
-            v.OptionPanel.Spacing = totalSpacing / (optionCnt + 1);
+            var totalSpacing = v.OptionPanel.Height - button.Height * OptionCnt;
+            v.OptionPanel.Spacing = totalSpacing / (OptionCnt + 1);
         }
         public async void Say(string character, string sprite, string dialogue, ExecutorBase executor)
         {
             var vm = GamePageViewModel.Instance!;
             vm.Character = character;
 
-            vm.Sprite = sprite;
+            vm.AvatarSrc = sprite;
             if (!vm.Sprites.Replace(sprite)) vm.Sprites.Add(sprite);
 
             vm.Dialogue = "";
@@ -62,6 +72,24 @@ namespace Avalgame.Providers
             vm.Dialogue = dialogue;
 
             executor.Complete();
+
+            if (OptionCnt > 0) return;
+            if (vm.Records.Count == 256) vm.Records.RemoveAt(0);
+            vm.Records.Add(Archive.Instance.Current = new()
+            {
+                Log = new()
+                {
+                    Position = executor.Position,
+                    BgSrc = vm.BgSrc,
+                    BgMsc = vm.BgMsc,
+                    Imgs = vm.Sprites.GetSrcs(),
+                    AvatarSrc = vm.AvatarSrc,
+                    Character = vm.Character,
+                    Dialogue = vm.Dialogue,
+                },
+                IntData = new(Archive.Instance.Current.IntData),
+                StringData = new(Archive.Instance.Current.StringData)
+            });
         }
     }
 }
