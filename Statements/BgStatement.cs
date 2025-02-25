@@ -20,8 +20,7 @@ namespace Avalgame.Statements
         public override ExecuteMode Mode => ExecuteMode.Wait;
         public override void Execute(ExecutorBase executor)
         {
-            GamePageViewModel.Instance!.BgImg = 
-                ImageHelper.LoadFromResource(new Uri("avares://Avalgame/Assets/Images/Backgrounds/" + src));
+            GamePageViewModel.Instance!.BgImg = ImageHelper.LoadBackground(src);
             GamePageViewModel.Instance.BgSrc = src;
             executor.Complete();
         }

@@ -12,7 +12,6 @@ namespace Avalgame.Models
 {
     public class SpriteInfo
     {
-        private const string PATH = "avares://Avalgame/Assets/Images/Characters";
         #region ctor
         public SpriteInfo(string src, float rotation = 0, float transparency = 0)
         {
@@ -57,7 +56,7 @@ namespace Avalgame.Models
 
             img = new Image
             {
-                Source = ImageHelper.LoadFromResource(new Uri($"{PATH}/{Character}/{Difference}")),
+                Source = ImageHelper.LoadSprite(Character, Difference),
 
                 Width = rect.Width,
                 Height = rect.Height,
