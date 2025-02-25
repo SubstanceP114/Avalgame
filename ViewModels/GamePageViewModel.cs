@@ -39,6 +39,10 @@ namespace Avalgame.ViewModels
         [ObservableProperty]
         private Bitmap? bgImg;
         /// <summary>
+        /// 背景图片路径
+        /// </summary>
+        public string? BgSrc {  get; set; }
+        /// <summary>
         /// 背景音乐路径
         /// </summary>
         public string? BgMsc { get; set; }

@@ -13,6 +13,28 @@ namespace Avalgame.Models
     public class SpriteInfo
     {
         private const string PATH = "avares://Avalgame/Assets/Images/Characters";
+        #region ctor
+        public SpriteInfo(string src, float rotation = 0, float transparency = 0)
+        {
+            var temp = src.Split('/');
+            Character = temp[0];
+            Difference = temp[1];
+            Init(new Rect(0,
+                -MainWindow.ScreenHeight * .2,
+                MainWindow.ScreenWidth * .4,
+                MainWindow.ScreenHeight * .8),
+                rotation, transparency);
+        }
+        public SpriteInfo(string character, string difference, float rotation = 0, float transparency = 0)
+        {
+            Character = character;
+            Difference = difference;
+            Init(new Rect(0,
+                -MainWindow.ScreenHeight * .2,
+                MainWindow.ScreenWidth * .4,
+                MainWindow.ScreenHeight * .8),
+                rotation, transparency);
+        }
         public SpriteInfo(string src, Rect rect, float rotation = 0, float transparency = 0)
         {
             var temp = src.Split('/');
@@ -26,6 +48,7 @@ namespace Avalgame.Models
             Difference = difference;
             Init(rect, rotation, transparency);
         }
+        #endregion
         private void Init(Rect rect, float rotation, float transparency)
         {
             Rect = rect;

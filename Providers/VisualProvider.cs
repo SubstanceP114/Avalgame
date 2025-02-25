@@ -50,9 +50,7 @@ namespace Avalgame.Providers
             vm.Character = character;
 
             vm.Sprite = sprite;
-            var info = new SpriteInfo(sprite, new Avalonia.Rect(0,
-                -MainWindow.ScreenHeight * .2, MainWindow.ScreenWidth * .4, MainWindow.ScreenHeight * .8));
-            if (!vm.Sprites.Replace(info)) vm.Sprites.Add(info);
+            if (!vm.Sprites.Replace(sprite)) vm.Sprites.Add(sprite);
 
             vm.Dialogue = "";
             foreach (var word in dialogue)

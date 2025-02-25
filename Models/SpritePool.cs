@@ -1,5 +1,6 @@
 ﻿using Avalgame.Views;
 using Avalonia;
+using Avalonia.Media.Imaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,26 +12,38 @@ namespace Avalgame.Models
     public class SpritePool
     {
         public int Capacity { get; init; }
+        public string[] Srcs { get; init; }
+
         private readonly SpriteInfo[] sprites;
         public SpriteInfo this[int idx]
         {
             get => sprites[(head + idx) % Capacity];
-            set => sprites[(head + idx) % Capacity] = value;
+            set
+            {
+                sprites[(head + idx) % Capacity] = value;
+                Srcs[(head + idx) % Capacity] = $"{value.Character}/{value.Difference}";
+            }
         }
+
         private int head, tail;
         private int Count => tail - head;
         private double Interval => MainWindow.ScreenWidth / Count;
+
         public SpritePool(int capacity)
         {
             Capacity = capacity;
+            Srcs = new string[Capacity];
             sprites = new SpriteInfo[capacity];
             head = tail = 0;
         }
+
         public void Clear()
         {
             for (int i = 0; i < Count; i++) this[i].Hide();
             head = tail = 0;
         }
+
+        public bool Replace(string src) => Replace(new SpriteInfo(src));
         public bool Replace(SpriteInfo sprite)
         {
             for (int i = 0; i < Count; i++)
@@ -38,17 +51,21 @@ namespace Avalgame.Models
                 if (this[i].Character == sprite.Character)
                 {
                     this[i].Hide();
+
                     sprite.Rect = this[i].Rect;
                     sprite.Rotation = this[i].Rotation;
                     sprite.Transparency = this[i].Transparency;
+
                     this[i] = sprite;
                     sprite.Update();
                     sprite.Show();
+
                     return true;
                 }
             }
             return false;
         }
+        public void Add(string src) => Add(new SpriteInfo(src));
         public void Add(SpriteInfo sprite)
         {
             if (Count == Capacity) sprites[head++ % Capacity].Hide();
@@ -56,6 +73,7 @@ namespace Avalgame.Models
             sprite.Show();
             Rearrange();
         }
+
         private void Rearrange()
         {
             int pos = 0;
