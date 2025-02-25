@@ -35,8 +35,14 @@ namespace Avalgame.Providers
                 v.ScrBtn.IsEnabled = true;
                 v.OptionPanel.Children.Clear();
                 while (optionCnt-- > 0) executor.Complete();
+
+                executor.Locate(target);
+                executor.Execute();
             };
             v.OptionPanel.Children.Add(button);
+
+            var totalSpacing = v.RootCanv.Height - v.NameCanv.Height - v.DialogCanv.Height - button.Height * optionCnt;
+            v.OptionPanel.Spacing = totalSpacing / (optionCnt + 1);
         }
         public async void Say(string character, string sprite, string dialogue, ExecutorBase executor)
         {

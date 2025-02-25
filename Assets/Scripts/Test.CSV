@@ -1,6 +1,9 @@
 ﻿#,,,,,,
 ,,,BG,Noa.jpg
+,,,MENU,b1,o1
+,,,MENU,b2,o2
+,,,MENU,r1,o3
 ,,,SAY,结城希亚,g/g1.png,我喜欢芭菲
-,,,SAY,芝士人物,b/b1.png,芝士对话
-,,,SAY,芝士人物,b/b2.png,芝士对话
-,,,SAY,芝士人物,r/r1.png,芝士对话
+,o1,,SAY,芝士人物,b/b1.png,芝士对话
+,o2,,SAY,芝士人物,b/b2.png,芝士对话
+,o3,,SAY,芝士人物,r/r1.png,芝士对话
