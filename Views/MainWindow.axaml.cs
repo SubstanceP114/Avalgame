@@ -27,11 +27,6 @@ namespace Avalgame.Views
 
             MinHeight = MaxHeight = ScreenHeight;
             MinWidth = MaxWidth = ScreenWidth;
-
-            Provider.Data = new DataProvider();
-            Provider.File = new FileProvider();
-            Provider.Log = new LogProvider();
-            Provider.Visual = new VisualProvider();
         }
     }
 }

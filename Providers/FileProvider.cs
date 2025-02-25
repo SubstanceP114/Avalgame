@@ -11,7 +11,7 @@ namespace Avalgame.Providers
     internal class FileProvider : IFileProvider
     {
         private const string PATH = "avares://Avalgame/Assets/Scripts/";
-        public bool FindFile(string name)
+        public bool Find(string name)
         {
             var uri = new Uri(PATH + name + ".CSV");
             if (AssetLoader.Exists(uri))

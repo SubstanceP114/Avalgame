@@ -1,32 +1,38 @@
 using Avalgame.Helpers;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Shapes;
 using Avalonia.Media;
 
 namespace Avalgame.Views
 {
     public partial class GamePageView : UserControl
     {
-        public static GamePageView? Instance {  get; private set; }
+        public static GamePageView? Instance { get; private set; }
         public GamePageView()
         {
             Instance = this;
             InitializeComponent();
             InitView();
         }
+
         #region Parameters
         private readonly double screenWidth = MainWindow.ScreenWidth;
-        private readonly double nameWidth = MainWindow.ScreenWidth * .36;
+        private readonly double nameWidth = MainWindow.ScreenWidth * .2;
+
         private readonly double screenHeight = MainWindow.ScreenHeight;
         private readonly double nameHeight = MainWindow.ScreenHeight * .03;
         private readonly double dialogHeight = MainWindow.ScreenHeight * .3;
+
         private readonly int ZIdxLow = 86;
         private readonly int ZIdxMid = 100;
         private readonly int ZIdxHigh = 114;
         private readonly int ZIdxLevel = 100;
+
         private readonly int dialogMarginX = 32;
         private readonly int dialogMarginY = 32;
         #endregion
+
         private void InitView()
         {
             #region RootCanv
@@ -84,6 +90,15 @@ namespace Avalgame.Views
             ScrBtn.Full();
             ScrBtn.Opacity = 0;
             ScrBtn.ZIndex = ZIdxLow + ZIdxLevel;
+            #endregion
+            #region OptionPanel
+            OptionPanel.Full();
+            OptionPanel.Children.Add(new Rectangle
+            {
+                Height = 0,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
+            });
+            OptionPanel.ZIndex = ZIdxMid + ZIdxLevel;
             #endregion
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Avalgame.Helpers;
 using Avalgame.Models;
+using Avalgame.Providers;
 using Avalgame.Views;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
@@ -20,14 +21,20 @@ namespace Avalgame.ViewModels
         public GamePageViewModel()
         {
             Instance = this;
+
             executor = new();
+
+            executor.Provider.Data = new DataProvider();
+            executor.Provider.File = new FileProvider();
+            executor.Provider.Visual = new VisualProvider();
+
             Sprites = new(2);
 
             executor.Locate("Test");
         }
         public override void Init() => executor.Execute();
 
-        private readonly Executor executor;
+        private readonly ExecutorImpl executor;
 
         [ObservableProperty]
         private Bitmap? bgImg;

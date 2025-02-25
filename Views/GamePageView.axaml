@@ -24,6 +24,7 @@
 			</Canvas>
 			
 			<Canvas Name="SpriteCanv"/>
+			<StackPanel Name="OptionPanel"/>
 			
 			<Button Name="ScrBtn" Command="{Binding NextCommand}"/>
 			
