@@ -49,7 +49,7 @@ namespace Avalgame.ViewModels
         {
             if (!GamePageView.Instance!.LogView.IsEnabled || value < 0 || value >= Records.Count) return;
             HideLog();
-            Goto((Archive.Instance.Current = Records[value]).Log);
+            Goto((Archive.Instance.Current = new(Records[value])).Log);
             Records = new(Records.Take(value + 1));
         }
         private void Goto(LogInfo info)

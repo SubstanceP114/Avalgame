@@ -26,10 +26,12 @@ namespace Avalgame.Models
             }
         }
 
+        private JsonSerializerOptions options;
         /// <summary>
         /// 向<see cref="PATH"/>序列化当前存档内容
         /// </summary>
-        public void Serialize() => File.WriteAllText(PATH, JsonSerializer.Serialize(this));
+        public void Serialize() => File.WriteAllText(PATH,
+            JsonSerializer.Serialize(this, options ??= new JsonSerializerOptions { WriteIndented = true }));
 
         /// <summary>
         /// 读取指定存档
@@ -79,7 +81,7 @@ namespace Avalgame.Models
 
         public int GetInt(string key)
             => GlobalInt.TryGetValue(key, out int value) ||
-            Current.IntData.TryGetValue(key, out value) ? value : -1;
+            Current.IntData.TryGetValue(key, out value) ? value : 0;
         public string GetString(string key)
             => GlobalString.TryGetValue(key, out string? value) ||
             Current.StringData.TryGetValue(key, out value) ? value : string.Empty;
@@ -90,6 +92,12 @@ namespace Avalgame.Models
             {
                 IntData = [];
                 StringData = [];
+            }
+            public Local(Local other)
+            {
+                Log = other.Log;
+                IntData = new(other.IntData);
+                StringData = new(other.StringData);
             }
             public LogInfo Log { get; set; }
             public Dictionary<string, int> IntData { get; set; }
