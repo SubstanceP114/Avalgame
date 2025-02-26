@@ -26,6 +26,10 @@ namespace Avalgame.Models
         /// </summary>
         public string[] Imgs { get; set; }
         /// <summary>
+        /// 当前选项信息
+        /// </summary>
+        public OptionInfo[] Options { get; set; }
+        /// <summary>
         /// 当前讲话人物名称
         /// </summary>
         public string? Character { get; set; }

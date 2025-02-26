@@ -33,6 +33,7 @@ namespace Avalgame.ViewModels
             executor.Locate("Test");
 
             Sprites = new(2);
+            Options = new(executor);
 
             Records = [];
         }
@@ -54,25 +55,13 @@ namespace Avalgame.ViewModels
         private void Goto(LogInfo info)
         {
             Sprites.Clear();
-
-            GamePageView.Instance!.OptionPanel.Children.Clear();
-            GamePageView.Instance.ScrBtn.IsEnabled = true;
-            GamePageView.Instance.OptionPanel.Children.Add(new Avalonia.Controls.Shapes.Rectangle
-            {
-                Height = 0,
-                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
-            });
-            var visual = executor.Provider.Visual as VisualProvider;
-            while (visual!.OptionCnt > 0)
-            {
-                visual.OptionCnt--;
-                executor.Complete();
-            }
+            Options.Clear();
 
             executor.Locate(info.Position);
             BgSrc = info.BgSrc;
             BgMsc = info.BgMsc;
             Sprites = new(info.Imgs);
+            Options = new(info.Options, executor);
             AvatarSrc = info.AvatarSrc;
             Character = info.Character;
             Dialogue = info.Dialogue;
@@ -102,6 +91,10 @@ namespace Avalgame.ViewModels
         /// 贴图信息
         /// </summary>
         public SpritePool Sprites { get; set; }
+        /// <summary>
+        /// 选项信息
+        /// </summary>
+        public OptionPool Options { get; set; }
 
         [ObservableProperty]
         private string? character;
