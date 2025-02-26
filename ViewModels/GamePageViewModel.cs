@@ -69,6 +69,7 @@ namespace Avalgame.ViewModels
         [RelayCommand]
         private void ShowLog()
         {
+            if (executor.Processing) return;
             GamePageView.Instance!.LogView.IsVisible = GamePageView.Instance.LogView.IsEnabled = true;
             SelectedRecordIdx = -1;
         }

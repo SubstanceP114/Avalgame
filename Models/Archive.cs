@@ -16,17 +16,10 @@ namespace Avalgame.Models
         /// <summary>
         /// 存档单例
         /// </summary>
-        public static Archive Instance
-        {
-            get
-            {
-                instance ??= File.Exists(PATH) ?
-                    JsonSerializer.Deserialize<Archive>(File.ReadAllText(PATH)) ?? new() : new();
-                return instance;
-            }
-        }
+        public static Archive Instance => instance ??= File.Exists(PATH) ?
+            JsonSerializer.Deserialize<Archive>(File.ReadAllText(PATH)) ?? new() : new();
 
-        private JsonSerializerOptions options;
+        private JsonSerializerOptions? options;
         /// <summary>
         /// 向<see cref="PATH"/>序列化当前存档内容
         /// </summary>
