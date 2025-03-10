@@ -1,0 +1,3 @@
+[submodule "StoryTable"]
+	path = StoryTable
+	url = https://github.com/BingyanStudio/StoryTable.git

@@ -62,6 +62,7 @@ namespace Avalgame.Statements
                 },
                 Start = target =>
                 {
+                    target.IsEnabled = true;
                     target.RenderTransform = new TranslateTransform(0, 0);
                 },
                 End = target =>
