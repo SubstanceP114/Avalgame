@@ -1,9 +1,12 @@
 using Avalgame.Helpers;
+using Avalgame.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Media;
+using StoryTable;
+using System;
 
 namespace Avalgame.Views
 {
@@ -139,6 +142,21 @@ namespace Avalgame.Views
             #endregion
             #region LogList
             LogList.Opacity = 4;
+            #endregion
+
+            #region Debug
+            DebugView.Width = screenWidth * .2;
+            DebugView.Height = screenHeight * .2;
+            Canvas.SetRight(DebugView, 0);
+            DebugView.AllowAutoHide = false;
+            DebugView.Opacity = .25;
+            DebugView.ZIndex = ZIdxHigh + ZIdxLevel * 2;
+
+            var vm = GamePageViewModel.Instance!;
+            vm.DebugInfos = new();
+            Logger.Error = s => vm.DebugInfos.Add(s);
+            Logger.Warning = s => vm.DebugInfos.Add(s);
+            Logger.Message = s => vm.DebugInfos.Add(s);
             #endregion
         }
     }

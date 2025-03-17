@@ -111,5 +111,10 @@ namespace Avalgame.ViewModels
 
         [RelayCommand]
         private void Next() => executor.Execute();
+
+        #region Debug
+        [ObservableProperty]
+        private ObservableCollection<string> debugInfos;
+        #endregion
     }
 }

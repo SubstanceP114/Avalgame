@@ -44,12 +44,10 @@
 						<ListBox.ItemTemplate>
 							<DataTemplate>
 								<StackPanel>
-									<TextBlock Height="{Binding #NameText.Height}"
-											   FontSize="{Binding #NameText.FontSize}"
+									<TextBlock FontSize="{Binding #NameText.FontSize}"
 											   FontWeight="{Binding #NameText.FontWeight}"
 											   Text="{Binding Log.Character}"/>
-									<TextBlock Height="{Binding #DialogText.Height}"
-									 		   FontSize="{Binding #DialogText.FontSize}"
+									<TextBlock FontSize="{Binding #DialogText.FontSize}"
 											   Margin="{Binding #DialogText.Margin}"
 											   TextWrapping="Wrap"
 											   Text="{Binding Log.Dialogue}"/>
@@ -60,6 +58,20 @@
 				</StackPanel>
 			</ScrollViewer>
 
+			<!--调试用-->
+			<ScrollViewer Name="DebugView">
+				<StackPanel>
+					<ListBox ItemsSource="{Binding DebugInfos}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding}" Width="{Binding #DebugCanv.Width}"
+										   TextWrapping="Wrap" FontSize="12" Opacity="4"/>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</StackPanel>
+			</ScrollViewer>
+			
 		</Canvas>
 
 	</Canvas>
