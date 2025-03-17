@@ -22,10 +22,10 @@ namespace Avalgame.Statements
         private static Dictionary<Option, PanelAnim>? panels;
         private static Dictionary<Option, PanelAnim> Panels => panels ??= new()
         {
-            { Option.Text, Text },
+            { Option.Text, text },
         };
 
-        private static readonly PanelAnim Text = new()
+        private static readonly PanelAnim text = new()
         {
             Target = GamePageView.Instance!.TextCanv,
             #region ShowDialog
@@ -43,8 +43,8 @@ namespace Avalgame.Statements
                             Setters =
                             {
                                 new Setter(TranslateTransform.YProperty,
-                                    GamePageView.Instance !.NameCanv.Height +
-                                    GamePageView.Instance !.DialogCanv.Height),
+                                    GamePageView.Instance!.NameCanv.Height +
+                                    GamePageView.Instance!.DialogCanv.Height),
                                 new Setter(Avalonia.Visual.OpacityProperty, 0.0),
                             }
                         },

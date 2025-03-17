@@ -3,6 +3,7 @@ using Avalgame.Views;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Controls;
+using Avalonia.Markup.Xaml.XamlIl.Runtime;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Styling;
@@ -22,36 +23,14 @@ namespace Avalgame.Models
         {
             Character = character;
             Difference = difference;
-            Init(rect, rotation, transparency);
+
+            Rect = rect;
+            Rotation = rotation;
+            Transparency = transparency;
         }
 
         public static Rect DefaultRect =>
             new(0, -MainWindow.ScreenHeight * .2, MainWindow.ScreenWidth * .4, MainWindow.ScreenHeight * .8);
-
-        private void Init(Rect rect, float rotation, float transparency)
-        {
-            Rect = rect;
-            Rotation = rotation;
-            Transparency = transparency;
-
-            img = new Image
-            {
-                Source = ImageHelper.LoadSprite(Character, Difference),
-
-                Width = rect.Width,
-                Height = rect.Height,
-                Stretch = Stretch.Fill,
-                Opacity = 1 - Transparency,
-                RenderTransform = new TransformGroup
-                {
-                    Children =
-                    {
-                        new TranslateTransform(Rect.Center.X, Rect.Center.Y),
-                        new RotateTransform(Rotation),
-                    },
-                },
-            };
-        }
 
         public string Character { get; init; }
         public string Difference { get; init; }
@@ -61,13 +40,30 @@ namespace Avalgame.Models
         public float Transparency { get; set; }
 
         private Image? img;
+        public Image Img => img ??= new Image
+        {
+            Source = ImageHelper.LoadSprite(Character, Difference),
 
-        public void Show() => GamePageView.Instance!.SpriteCanv.Children.Add(img!);
-        public void Hide() => GamePageView.Instance!.SpriteCanv.Children.Remove(img!);
+            Width = Rect.Width,
+            Height = Rect.Height,
+            Stretch = Stretch.Fill,
+            Opacity = 1 - Transparency,
+            RenderTransform = new TransformGroup
+            {
+                Children =
+                {
+                    new TranslateTransform(Rect.Center.X, Rect.Center.Y),
+                    new RotateTransform(Rotation),
+                },
+            },
+        };
+
+        public void Show() => GamePageView.Instance!.SpriteCanv.Children.Add(Img);
+        public void Hide() => GamePageView.Instance!.SpriteCanv.Children.Remove(Img);
         public void Update()
         {
-            img!.Opacity = 1 - Transparency;
-            img.RenderTransform = new TransformGroup
+            Img.Opacity = 1 - Transparency;
+            Img.RenderTransform = new TransformGroup
             {
                 Children =
                 {

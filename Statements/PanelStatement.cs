@@ -53,12 +53,12 @@ namespace Avalgame.Statements
         }
     }
 
-    public class PanelAnim
+    public struct PanelAnim
     {
         public Control Target;
         public AnimInfo Show;
         public AnimInfo Hide;
-        public class AnimInfo
+        public struct AnimInfo
         {
             public Animation Anim;
             /// <summary>

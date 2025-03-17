@@ -1,6 +1,7 @@
 ﻿#,,,,,,
 ,,,BG,Noa.jpg
 ,,,SHOW,Text
+,,,ANIM,Jump,b/b1.png
 ,,,SAY,1,b/b1.png,111
 ,,,MENU,b1,o1
 ,,,MENU,b2,o2
