@@ -1,4 +1,3 @@
-using Avalgame.Helpers;
 using Avalgame.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
@@ -6,7 +5,6 @@ using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Media;
 using StoryTable;
-using System;
 
 namespace Avalgame.Views
 {
@@ -153,7 +151,7 @@ namespace Avalgame.Views
             DebugView.ZIndex = ZIdxHigh + ZIdxLevel * 2;
 
             var vm = GamePageViewModel.Instance!;
-            vm.DebugInfos = new();
+            vm.DebugInfos = [];
             Logger.Error = s => vm.DebugInfos.Add(s);
             Logger.Warning = s => vm.DebugInfos.Add(s);
             Logger.Message = s => vm.DebugInfos.Add(s);

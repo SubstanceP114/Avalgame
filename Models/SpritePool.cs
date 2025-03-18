@@ -14,7 +14,11 @@ namespace Avalgame.Models
         public int Capacity { get; init; }
 
         private readonly SpriteInfo[] sprites;
-        public static implicit operator SpriteInfo[](SpritePool pool) => pool.sprites;
+        public SpriteInfo this[int idx]
+        {
+            get => sprites[(head + idx) % Capacity];
+            set => sprites[(head + idx) % Capacity] = value;
+        }
 
         private int head, tail;
         private int Count => tail - head;
@@ -24,7 +28,7 @@ namespace Avalgame.Models
         {
             var srcs = new string[Capacity];
             for (int i = 0; i < Count; i++)
-                srcs[i] = $"{sprites[i].Character}/{sprites[i].Difference}";
+                srcs[i] = $"{this[i].Character}/{this[i].Difference}";
             return srcs;
         }
 
@@ -45,7 +49,7 @@ namespace Avalgame.Models
 
         public void Clear()
         {
-            for (int i = 0; i < Count; i++) sprites[i].Hide();
+            for (int i = 0; i < Count; i++) this[i].Hide();
             head = tail = 0;
         }
 
@@ -54,17 +58,17 @@ namespace Avalgame.Models
         {
             for (int i = 0; i < Count; i++)
             {
-                if (sprites[i].Character == sprite.Character)
+                if (this[i].Character == sprite.Character)
                 {
-                    if (sprites[i].Difference == sprite.Difference) return true;
+                    if (this[i].Difference == sprite.Difference) return true;
 
-                    sprites[i].Hide();
+                    this[i].Hide();
 
-                    sprite.Rect = sprites[i].Rect;
-                    sprite.Rotation = sprites[i].Rotation;
-                    sprite.Transparency = sprites[i].Transparency;
+                    sprite.Rect = this[i].Rect;
+                    sprite.Rotation = this[i].Rotation;
+                    sprite.Transparency = this[i].Transparency;
 
-                    sprites[i] = sprite;
+                    this[i] = sprite;
                     sprite.Update();
                     sprite.Show();
 
@@ -83,10 +87,11 @@ namespace Avalgame.Models
             Rearrange();
         }
 
-        public SpriteInfo Get(string src)
+        public SpriteInfo? Get(string src)
         {
             var sprite = src.Split(['/']);
-            return sprites.First(s => s.Character == sprite[0] && s.Difference == sprite[1]);
+            for (int i = 0; i < Count; i++) if (this[i].Character == sprite[0] && this[i].Difference == sprite[1]) return this[i];
+            return null;
         }
 
         private void Rearrange()
@@ -94,9 +99,9 @@ namespace Avalgame.Models
             int pos = 0;
             void Process(int idx)
             {
-                Rect temp = sprites[idx].Rect;
-                sprites[idx].Rect = new(Interval * (.5 + pos++) - temp.Width, temp.Top, temp.Width, temp.Height);
-                sprites[idx].Update();
+                Rect temp = this[idx].Rect;
+                this[idx].Rect = new(Interval * (.5 + pos++) - temp.Width, temp.Top, temp.Width, temp.Height);
+                this[idx].Update();
             }
             for (int i = 0; i < Count; i += 2) Process(i);
             for (int i = Count - Count % 2 - 1; i > 0; i -= 2) Process(i);

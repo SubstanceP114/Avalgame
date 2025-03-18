@@ -1,8 +1,4 @@
-﻿using Avalonia.Controls;
-using CommunityToolkit;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.Generic;
 namespace Avalgame.ViewModels
 {
@@ -19,8 +15,8 @@ namespace Avalgame.ViewModels
             ChangePage(Page.Home);
         }
         [ObservableProperty]
-        private ViewModelBase? _curPage;
-        private Dictionary<Page, ViewModelBase> pages;
+        private ViewModelBase? curPage;
+        private readonly Dictionary<Page, ViewModelBase> pages;
         /// <summary>
         /// 切换页面的方法
         /// </summary>

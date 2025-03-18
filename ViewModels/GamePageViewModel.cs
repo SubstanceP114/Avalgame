@@ -1,19 +1,12 @@
-﻿using Avalgame.Helpers;
-using Avalgame.Models;
+﻿using Avalgame.Models;
 using Avalgame.Providers;
 using Avalgame.Views;
 using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using StoryTable;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Avalgame.ViewModels
 {
@@ -114,7 +107,7 @@ namespace Avalgame.ViewModels
 
         #region Debug
         [ObservableProperty]
-        private ObservableCollection<string> debugInfos;
+        private ObservableCollection<string>? debugInfos;
         #endregion
     }
 }

@@ -1,10 +1,5 @@
 ﻿using Avalgame.ViewModels;
-using Avalonia.Controls;
 using StoryTable;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,10 +18,15 @@ namespace Avalgame.Statements
         public override ExecuteMode Mode => ExecuteMode.Next;
         public async override void Execute(ExecutorBase executor)
         {
+            executor.Complete();
+            bool end = false;
+            void End() => end = true;
+            executor.OnExecuting += End;
+
             var vm = GamePageViewModel.Instance!;
 
             if (!vm.Sprites.Replace(target)) vm.Sprites.Add(target);
-            var sprite = vm.Sprites.Get(target);
+            var sprite = vm.Sprites.Get(target)!;
 
             var anim = Anims[option](sprite);
             var cts = new CancellationTokenSource();
@@ -34,10 +34,10 @@ namespace Avalgame.Statements
             _ = anim.RunAsync(sprite.Img, cts.Token);
             int refreshTime = (executor as ExecutorImpl)!.RefreshTime;
             int countdown = (int)anim.IterationCount.Value * (int)anim.Duration.TotalMilliseconds;
-            while ((countdown -= refreshTime) > 0 && !executor.Skip) await Task.Delay(refreshTime);
+            while ((countdown -= refreshTime) > 0 && !executor.Skip && !end) await Task.Delay(refreshTime);
 
             cts.Cancel();
-            executor.Complete();
+            executor.OnExecuting -= End;
         }
     }
 }

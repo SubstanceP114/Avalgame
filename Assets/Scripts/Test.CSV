@@ -1,13 +1,15 @@
 ﻿#,,,,,,
 ,,,BG,Noa.jpg
 ,,,SHOW,Text
-,,,ANIM,Swing,b/b1.png
+,,,ANIM,Jump,b/b1.png
 ,,,SAY,1,b/b1.png,111
 ,,,MENU,b1,o1
 ,,,MENU,b2,o2
 ,,,MENU,r1,o3
-,,,SAY,2,g/g1.png,222
+,,Next,SAY,2,g/g1.png,222
+,,Pause,ANIM,Swing,b/b1.png
 ,o1,,VARY,Add,v,1,v
+,,,ANIM,Nod,b/b1.png
 ,,,SAY,3,b/b1.png,333
 ,,,VARY,Add,v,1,v
 ,,,TAG,out
