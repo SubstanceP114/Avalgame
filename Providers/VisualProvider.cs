@@ -16,6 +16,7 @@ namespace Avalgame.Providers
         public void Menu(string content, Locator target, ExecutorBase executor)
         {
             GamePageViewModel.Instance!.Options.Add(content, target);
+            executor.Complete();
         }
         public async void Say(string character, string sprite, string dialogue, ExecutorBase executor)
         {
