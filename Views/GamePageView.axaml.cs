@@ -145,7 +145,6 @@ namespace Avalgame.Views
             #region Debug
             DebugView.Width = screenWidth * .2;
             DebugView.Height = screenHeight * .2;
-            Canvas.SetRight(DebugView, 0);
             DebugView.AllowAutoHide = false;
             DebugView.Opacity = .25;
             DebugView.ZIndex = ZIdxHigh + ZIdxLevel * 2;
