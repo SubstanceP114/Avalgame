@@ -1,13 +1,7 @@
 ﻿using Avalgame.ViewModels;
 using Avalgame.Models;
 using StoryTable;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Avalgame.Views;
-using Avalonia.Controls;
 
 namespace Avalgame.Providers
 {

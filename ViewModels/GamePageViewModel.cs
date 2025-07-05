@@ -1,4 +1,5 @@
-﻿using Avalgame.Models;
+﻿using Avalgame.Helpers;
+using Avalgame.Models;
 using Avalgame.Providers;
 using Avalgame.Views;
 using Avalonia.Media.Imaging;
@@ -16,6 +17,8 @@ namespace Avalgame.ViewModels
         public GamePageViewModel()
         {
             Instance = this;
+
+            FuncHelper.Init(FuncStatement.Dict);
 
             executor = new();
 
