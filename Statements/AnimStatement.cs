@@ -25,16 +25,16 @@ namespace Avalgame.Statements
 
             var vm = GamePageViewModel.Instance!;
 
-            if (!vm.Sprites.Replace(target)) vm.Sprites.Add(target);
-            var sprite = vm.Sprites.Get(target)!;
+            //if (!vm.Sprites.Replace(target)) vm.Sprites.Add(target);
+            //var sprite = vm.Sprites.Get(target)!;
 
-            var anim = Anims[option](sprite);
+            //var anim = Anims[option](sprite);
             var cts = new CancellationTokenSource();
 
-            _ = anim.RunAsync(sprite.Img, cts.Token);
-            int refreshTime = (executor as ExecutorImpl)!.RefreshTime;
-            int countdown = (int)anim.IterationCount.Value * (int)anim.Duration.TotalMilliseconds;
-            while ((countdown -= refreshTime) > 0 && !executor.Skip && !end) await Task.Delay(refreshTime);
+            //_ = anim.RunAsync(sprite.Img, cts.Token);
+            //int refreshTime = (executor as ExecutorImpl)!.RefreshTime;
+            //int countdown = (int)anim.IterationCount.Value * (int)anim.Duration.TotalMilliseconds;
+            //while ((countdown -= refreshTime) > 0 && !executor.Skip && !end) await Task.Delay(refreshTime);
 
             cts.Cancel();
             executor.OnExecuting -= End;

@@ -19,7 +19,8 @@ namespace Avalgame.Providers
             vm.Character = character;
 
             vm.AvatarSrc = sprite;
-            if (!vm.Sprites.Replace(character, sprite)) vm.Sprites.Add(character, sprite);
+
+            CharacterManager.Instance[character].Show(sprite);
 
             vm.Dialogue = "";
             foreach (var word in dialogue)

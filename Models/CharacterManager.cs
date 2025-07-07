@@ -1,7 +1,10 @@
-﻿using Avalonia.Platform;
+﻿using Avalgame.Views;
+using Avalonia;
+using Avalonia.Platform;
 using StoryTable;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Avalgame.Models
 {
@@ -16,6 +19,8 @@ namespace Avalgame.Models
         private readonly Dictionary<string, Character> characters;
 
         private LRUCache<Character, int> current;
+
+        private double Interval => MainWindow.ScreenWidth / current.Count;
 
         private CharacterManager()
         {
@@ -42,10 +47,23 @@ namespace Avalgame.Models
                 var token = s.Split("::");
                 var character = characters[token[1]];
                 character.Deserialize(token[2..]);
-                current.Add(character, int.Parse(token[0]));
+                current.Set(character, int.Parse(token[0]));
             });
             Update();
         }
+
+        public void Register(Character character)
+        {
+            var idxs = current.Values.ToHashSet();
+            for (int i = 0; i < current.Capacity; i++)
+            {
+                if (idxs.Contains(i)) continue;
+                current.Set(character, i);
+                return;
+            }
+            current.Set(character, current.PopLast().Item2);
+        }
+        public bool Unregister(Character character) => current.Remove(character);
 
         public Character this[string name] => characters[name];
 
@@ -59,7 +77,7 @@ namespace Avalgame.Models
 
         public void Clear()
         {
-            current.Keys.ForEach(c => c.Sprite.Hide());
+            current.Keys.ForEach(c => c.Sprite!.Hide());
             current.Clear();
         }
 
@@ -71,7 +89,18 @@ namespace Avalgame.Models
 
         public void Update()
         {
+            int pos = 0;
+            var arr = new Character[current.Count];
 
+            void Process(int idx)
+            {
+                Rect temp = arr[idx].Sprite!.Rect;
+                arr[idx].Sprite!.Rect = new(Interval * (.5 + pos++) - temp.Width, temp.Top, temp.Width, temp.Height);
+                arr[idx].Sprite!.Update();
+            }
+
+            for (int i = 0; i < current.Count; i += 2) Process(i);
+            for (int i = current.Count - current.Count % 2 - 1; i > 0; i -= 2) Process(i);
         }
 
         #region Load

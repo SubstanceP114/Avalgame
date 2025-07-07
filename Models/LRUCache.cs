@@ -12,6 +12,8 @@ namespace Avalgame.Models
 
         public int Capacity { get; private set; }
 
+        public int Count => list.Count;
+
         public LRUCache(int capacity)
         {
             dict = [];
@@ -33,7 +35,7 @@ namespace Avalgame.Models
             return default;
         }
 
-        public void Add(K key, V value)
+        public void Set(K key, V value)
         {
             if (dict.TryGetValue(key, out var node))
             {
@@ -43,7 +45,7 @@ namespace Avalgame.Models
             else
             {
                 dict.Add(key, list.AddFirst((key, value)));
-                if (list.Count > Capacity) RemoveLast();
+                if (list.Count > Capacity) PopLast();
             }
         }
 
@@ -55,9 +57,15 @@ namespace Avalgame.Models
 
         public bool TryGet(K key, out V? value)
         {
-            var exist = dict.TryGetValue(key, out var node);
-            value = exist ? node!.Value.Item2 : default;
-            return exist;
+            if (dict.TryGetValue(key, out var node))
+            {
+                value = node!.Value.Item2;
+                list.Remove(node);
+                list.AddFirst(node);
+                return true;
+            }
+            value = default;
+            return false;
         }
 
         public void Clear()
@@ -72,14 +80,24 @@ namespace Avalgame.Models
             while (Capacity > capacity)
             {
                 Capacity--;
-                RemoveLast();
+                PopLast();
             }
         }
 
-        private void RemoveLast()
+        public (K, V) PopLast()
         {
             dict.Remove(list.Last!.Value.Item1);
+            var last = list.Last.Value;
             list.RemoveLast();
+            return last;
+        }
+
+        public bool Remove(K key)
+        {
+            if (!dict.TryGetValue(key, out var node)) return false;
+            list.Remove(node);
+            dict.Remove(key);
+            return true;
         }
     }
 }

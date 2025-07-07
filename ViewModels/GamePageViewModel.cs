@@ -28,7 +28,6 @@ namespace Avalgame.ViewModels
 
             executor.Locate("Test");
 
-            Sprites = new(2);
             Options = new(executor);
 
             Records = [];
@@ -50,7 +49,6 @@ namespace Avalgame.ViewModels
         }
         private void Goto(LogInfo info)
         {
-            Sprites.Clear();
             Options.Clear();
 
             executor.Locate(info.Position);
@@ -84,10 +82,6 @@ namespace Avalgame.ViewModels
         /// </summary>
         public string? BgMsc { get; set; }
 
-        /// <summary>
-        /// 贴图信息
-        /// </summary>
-        public SpritePool Sprites { get; set; }
         /// <summary>
         /// 选项信息
         /// </summary>

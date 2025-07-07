@@ -22,7 +22,7 @@ namespace Avalgame.Models
         /// <summary>
         /// 当前立绘信息
         /// </summary>
-        public SpriteInfo Sprite { get; set; }
+        public SpriteInfo? Sprite { get; set; }
 
         private Dictionary<string, Bitmap> images;
 
@@ -40,7 +40,24 @@ namespace Avalgame.Models
         {
             CurrentDifference = token[0];
             Sprite = JsonSerializer.Deserialize<SpriteInfo>(token[1]);
-            Sprite.SetSource(this[CurrentDifference]);
+            Sprite!.SetSource(this[CurrentDifference]);
+        }
+
+        public void Show(string difference)
+        {
+            if (Sprite == null)
+            {
+                CurrentDifference = difference;
+                Sprite = new(this[difference]);
+                Sprite.Show();
+                CharacterManager.Instance.Register(this);
+            }
+            else Sprite.SetSource(this[difference]);
+        }
+        public void Hide()
+        {
+            Sprite?.Hide();
+            CharacterManager.Instance.Unregister(this);
         }
 
         /// <summary>
