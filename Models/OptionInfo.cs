@@ -1,17 +1,12 @@
 ﻿using Avalgame.ViewModels;
 using Avalgame.Views;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using StoryTable;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Avalgame.Models
 {
-    public class OptionInfo
+    public struct OptionInfo
     {
         public string Content { get; init; }
         public Locator Target { get; init; }
@@ -38,9 +33,11 @@ namespace Avalgame.Models
                 VerticalContentAlignment = Avalonia.Layout.VerticalAlignment.Center,
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
             };
-            btn.Click += (s, e) => GamePageViewModel.Instance!.Options.Select(Target);
+            btn.Click += OnClick;
             return btn;
         }
+
+        private void OnClick(object? s, RoutedEventArgs e) => GamePageViewModel.Instance!.Options.Select(Target);
 
         public void Show() => GamePageView.Instance!.OptionPanel.Children.Add(btn ??= MakeButton());
         public void Hide() => GamePageView.Instance!.OptionPanel.Children.Remove(btn!);
