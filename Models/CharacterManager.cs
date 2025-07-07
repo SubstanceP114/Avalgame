@@ -1,5 +1,4 @@
 ﻿using Avalgame.Views;
-using Avalonia;
 using Avalonia.Platform;
 using StoryTable;
 using System.Collections.Generic;
@@ -10,14 +9,14 @@ namespace Avalgame.Models
 {
     public class CharacterManager
     {
-        private static readonly CharacterManager? instance;
-        public static CharacterManager Instance => instance ?? new();
+        private static CharacterManager? instance;
+        public static CharacterManager Instance => instance ??= new();
 
         private const string CONFIG_RES = "avares://Avalgame/Assets/Configs/characters.txt";
 
         private readonly Dictionary<string, Character> characters;
 
-        private LRUCache<Character, int> current;
+        public LRUCache<Character, int> current;
 
         private double Interval => MainWindow.ScreenWidth / current.Count;
 
@@ -34,7 +33,7 @@ namespace Avalgame.Models
         public List<string> Serialize()
         {
             List<string> list = [current.Capacity.ToString()];
-            current.Pairs.ForEach(p => list.Add($"{p.Value}::{p.Key.Serialize()}"));
+            current.Pairs.ToList().ForEach(p => list.Add($"{p.Value}::{p.Key.Serialize()}"));
             return list;
         }
         public void Deserialize(List<string> data)
@@ -53,14 +52,19 @@ namespace Avalgame.Models
 
         public void Register(Character character)
         {
-            var idxs = current.Values.ToHashSet();
-            for (int i = 0; i < current.Capacity; i++)
+            var idx = 0;
+            for (; idx < current.Capacity; idx++)
+                if (!current.Values.Contains(idx)) break;
+
+            if (idx == current.Capacity)
             {
-                if (idxs.Contains(i)) continue;
-                current.Set(character, i);
-                return;
+                var last = current.PeekLast();
+                last.Item1.Hide();
+                idx = last.Item2;
             }
-            current.Set(character, current.PopLast().Item2);
+
+            current.Set(character, idx);
+            Update();
         }
         public bool Unregister(Character character) => current.Remove(character);
 
@@ -76,7 +80,7 @@ namespace Avalgame.Models
 
         public void Clear()
         {
-            current.Keys.ForEach(c => c.Sprite!.Hide());
+            current.Keys.ToList().ForEach(c => c.Hide());
             current.Clear();
         }
 
@@ -88,14 +92,18 @@ namespace Avalgame.Models
 
         public void Update()
         {
-            int pos = 0;
             var arr = new Character[current.Count];
+            current.Pairs.ToList().ForEach(p => arr[p.Value] = p.Key);
 
+            int pos = 0;
             void Process(int idx)
             {
-                Rect temp = arr[idx].Sprite!.Rect;
-                arr[idx].Sprite!.Rect = new(Interval * (.5 + pos++) - temp.Width, temp.Top, temp.Width, temp.Height);
-                arr[idx].Sprite!.Update();
+                var character = arr[idx];
+                if (character == null) return;
+
+                var temp = character.Sprite!.Rect;
+                character.Sprite.Rect = new(Interval * (.5 + pos++) - temp.Width, temp.Top, temp.Width, temp.Height);
+                character.Sprite.Update();
             }
 
             for (int i = 0; i < current.Count; i += 2) Process(i);

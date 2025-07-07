@@ -3,7 +3,6 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 
 namespace Avalgame.Models
 {
@@ -35,12 +34,13 @@ namespace Avalgame.Models
 
         public Bitmap this[string differance] => images[differance];
 
-        public string Serialize() => $"{Name}::{CurrentDifference}::{JsonSerializer.Serialize(Sprite)}";
+        public string Serialize() => $"{Name}::{CurrentDifference}::{Sprite!.Serialize()}";
         public void Deserialize(string[] token)
         {
             CurrentDifference = token[0];
-            Sprite = JsonSerializer.Deserialize<Sprite>(token[1]);
-            Sprite!.SetSource(this[CurrentDifference]);
+            Sprite = new(this[CurrentDifference]);
+            Sprite.Deserialize(token[1]);
+            Sprite.Show();
         }
 
         public void Show(string difference)
@@ -58,6 +58,7 @@ namespace Avalgame.Models
         {
             Sprite?.Hide();
             CharacterManager.Instance.Unregister(this);
+            Sprite = null;
         }
 
         /// <summary>

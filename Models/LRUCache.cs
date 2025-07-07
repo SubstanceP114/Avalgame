@@ -1,14 +1,13 @@
 ﻿using StoryTable;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Avalgame.Models
 {
-    internal class LRUCache<K, V> where K : notnull
+    public class LRUCache<K, V> where K : notnull
     {
-        private Dictionary<K, LinkedListNode<(K, V)>> dict;
-        private LinkedList<(K, V)> list;
+        private readonly Dictionary<K, LinkedListNode<(K, V)>> dict;
+        private readonly LinkedList<(K, V)> list;
 
         public int Capacity { get; private set; }
 
@@ -45,13 +44,13 @@ namespace Avalgame.Models
             else
             {
                 dict.Add(key, list.AddFirst((key, value)));
-                if (list.Count > Capacity) PopLast();
+                if (Count > Capacity) PopLast();
             }
         }
 
-        public List<K> Keys => list.Select(v => v.Item1).ToList();
-        public List<V> Values => list.Select(v => v.Item2).ToList();
-        public List<KeyValuePair<K, V>> Pairs => list.Select(n => new KeyValuePair<K, V>(n.Item1, n.Item2)).ToList();
+        public IEnumerable<K> Keys => list.Select(v => v.Item1);
+        public IEnumerable<V> Values => list.Select(v => v.Item2);
+        public IEnumerable<KeyValuePair<K, V>> Pairs => list.Select(n => new KeyValuePair<K, V>(n.Item1, n.Item2));
 
         public bool Contains(K key) => dict.ContainsKey(key);
 
@@ -91,6 +90,8 @@ namespace Avalgame.Models
             list.RemoveLast();
             return last;
         }
+
+        public (K, V) PeekLast() => list.Last!.Value;
 
         public bool Remove(K key)
         {

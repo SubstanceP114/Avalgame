@@ -3,6 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using System.Text.Json.Serialization;
 
 namespace Avalgame.Models
 {
@@ -26,12 +27,20 @@ namespace Avalgame.Models
         public static Rect DefaultRect =>
             new(0, -MainWindow.ScreenHeight * .2, MainWindow.ScreenWidth * .4, MainWindow.ScreenHeight * .8);
 
-        private Bitmap source;
+        private Bitmap? source;
         public void SetSource(Bitmap source) => Img.Source = this.source = source;
 
         public Rect Rect { get; set; }
         public float Rotation { get; set; }
         public float Transparency { get; set; }
+
+        public string Serialize() => $"{Rotation}|{Transparency}";
+        public void Deserialize(string data)
+        {
+            var token = data.Split('|');
+            Rotation = float.Parse(token[0]);
+            Transparency = float.Parse(token[1]);
+        }
 
         private Image? img;
         public Image Img => img ??= new Image
