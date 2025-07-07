@@ -1,26 +1,26 @@
 ﻿#禁用标记,跳转标签,执行模式,语句名称,参数,参数,参数
 ,,,BG,Noa.jpg
 ,,,SHOW,Text
-,,,ANIM,Jump,b/b1.png
-,,,SAY,1,b/b1.png,111
+,,,ANIM,Jump,b1
+,,,SAY,1,b1,111
 ,,,MENU,b1,o1
 ,,,MENU,b2,o2
 ,,,MENU,r1,o3
-,,Next,SAY,2,g/g1.png,222
+,,Next,SAY,2,g1,222
 ,,Pause,ANIM,Swing,b/b1.png
 ,o1,,VARY,Add,v,1,v
 ,,,FUNC,M,func message
 ,,,ANIM,Nod,b/b1.png
-,,,SAY,3,b/b1.png,333
+,,,SAY,3,b1,333
 ,,,VARY,Add,v,1,v
 ,,,TAG,out
 ,o2,,VARY,Add,v,2,v
 ,,,FUNC,W,func warning
-,,,SAY,4,b/b2.png,444
+,,,SAY,4,b2,444
 ,,,VARY,Add,v,2,v
 ,,,TAG,out
 ,o3,,VARY,Add,v,3,v
 ,,,FUNC,E,func error
-,,,SAY,5,r/r1.png,555
+,,,SAY,5,r1,555
 ,,,VARY,Add,v,3,v
-,out,,SAY,6,g/g1.png,666
+,out,,SAY,6,g1,666

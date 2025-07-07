@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using StoryTable;
+﻿using StoryTable;
 using System.Collections.Generic;
 
 namespace Avalgame.Models
@@ -22,9 +21,9 @@ namespace Avalgame.Models
         /// </summary>
         public string? BgMsc { get; set; }
         /// <summary>
-        /// 人物立绘路径
+        /// 当前出场人物信息
         /// </summary>
-        public string[] Imgs { get; set; }
+        public List<string> Characters { get; set; }
         /// <summary>
         /// 当前选项信息
         /// </summary>

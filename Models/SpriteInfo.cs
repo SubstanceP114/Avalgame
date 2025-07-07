@@ -1,28 +1,22 @@
-﻿using Avalgame.Helpers;
-using Avalgame.Views;
+﻿using Avalgame.Views;
 using Avalonia;
-using Avalonia.Animation;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml.XamlIl.Runtime;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Avalonia.Styling;
-using System;
 
 namespace Avalgame.Models
 {
-    public class SpriteInfo
+    public struct SpriteInfo
     {
-        public SpriteInfo(string src, float rotation = 0, float transparency = 0)
-            : this(src, DefaultRect, rotation, transparency) { }
-        public SpriteInfo(string character, string difference, float rotation = 0, float transparency = 0)
-            : this(character, difference, DefaultRect, rotation, transparency) { }
-        public SpriteInfo(string src, Rect rect, float rotation = 0, float transparency = 0)
-            : this(src.Split('/')[0], src.Split('/')[1], rotation, transparency) { }
-        public SpriteInfo(string character, string difference, Rect rect, float rotation = 0, float transparency = 0)
+        public SpriteInfo(Character character, float rotation = 0, float transparency = 0)
+            : this(character, DefaultRect, rotation, transparency) { }
+        public SpriteInfo(Bitmap source, float rotation, float transparency)
+            : this(source, DefaultRect, rotation, transparency) { }
+        public SpriteInfo(Character character, Rect rect, float rotation = 0, float transparency = 0)
+            : this(CharacterManager.Instance[character.Name][character.CurrentDifference!], rect, rotation, transparency) { }
+        public SpriteInfo(Bitmap source, Rect rect, float rotation, float transparency)
         {
-            Character = character;
-            Difference = difference;
+            this.source = source;
 
             Rect = rect;
             Rotation = rotation;
@@ -32,8 +26,8 @@ namespace Avalgame.Models
         public static Rect DefaultRect =>
             new(0, -MainWindow.ScreenHeight * .2, MainWindow.ScreenWidth * .4, MainWindow.ScreenHeight * .8);
 
-        public string Character { get; init; }
-        public string Difference { get; init; }
+        private Bitmap source;
+        public void SetSource(Bitmap source) => Img.Source = this.source = source;
 
         public Rect Rect { get; set; }
         public float Rotation { get; set; }
@@ -42,7 +36,7 @@ namespace Avalgame.Models
         private Image? img;
         public Image Img => img ??= new Image
         {
-            Source = ImageHelper.LoadSprite(Character, Difference),
+            Source = source,
 
             Width = Rect.Width,
             Height = Rect.Height,

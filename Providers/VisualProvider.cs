@@ -19,7 +19,7 @@ namespace Avalgame.Providers
             vm.Character = character;
 
             vm.AvatarSrc = sprite;
-            if (!vm.Sprites.Replace(sprite)) vm.Sprites.Add(sprite);
+            if (!vm.Sprites.Replace(character, sprite)) vm.Sprites.Add(character, sprite);
 
             vm.Dialogue = "";
             foreach (var word in dialogue)
@@ -40,7 +40,7 @@ namespace Avalgame.Providers
                     Position = executor.Position,
                     BgSrc = vm.BgSrc,
                     BgMsc = vm.BgMsc,
-                    Imgs = vm.Sprites.GetSrcs(),
+                    Characters = CharacterManager.Instance.Serialize(),
                     Options = [.. vm.Options.Infos],
                     AvatarSrc = vm.AvatarSrc,
                     Character = vm.Character,

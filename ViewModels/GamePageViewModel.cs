@@ -56,7 +56,7 @@ namespace Avalgame.ViewModels
             executor.Locate(info.Position);
             BgSrc = info.BgSrc;
             BgMsc = info.BgMsc;
-            Sprites = new(info.Imgs);
+            CharacterManager.Instance.Deserialize(info.Characters);
             Options = new(info.Options, executor);
             AvatarSrc = info.AvatarSrc;
             Character = info.Character;

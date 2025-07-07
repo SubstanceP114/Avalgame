@@ -1,11 +1,5 @@
 ﻿using Avalgame.Views;
 using Avalonia;
-using Avalonia.Media.Imaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Avalgame.Models
 {
@@ -38,13 +32,13 @@ namespace Avalgame.Models
             sprites = new SpriteInfo[capacity];
             head = tail = 0;
         }
-        public SpritePool(string[] srcs)
+        public SpritePool(Character[] characters)
         {
-            Capacity = srcs.Length;
+            Capacity = characters.Length;
             sprites = new SpriteInfo[Capacity];
             head = tail = 0;
-            foreach (var src in srcs)
-                if (src != null) Add(src);
+            foreach (var character in characters)
+                if (character != null) Add(character.Name, character.CurrentDifference!);
         }
 
         public void Clear()
@@ -53,7 +47,7 @@ namespace Avalgame.Models
             head = tail = 0;
         }
 
-        public bool Replace(string src) => Replace(new SpriteInfo(src));
+        public bool Replace(string character, string difference) => Replace(new SpriteInfo(character, difference));
         public bool Replace(SpriteInfo sprite)
         {
             for (int i = 0; i < Count; i++)
@@ -78,7 +72,7 @@ namespace Avalgame.Models
             return false;
         }
 
-        public void Add(string src) => Add(new SpriteInfo(src));
+        public void Add(string character, string difference) => Add(new SpriteInfo(character, difference));
         public void Add(SpriteInfo sprite)
         {
             if (Count == Capacity) sprites[head++ % Capacity].Hide();

@@ -15,8 +15,8 @@ namespace Avalgame.Helpers
             throw new FileNotFoundException($"找不到文件{resourceUri}");
         }
 
-        private const string BACKGROUND_PATH = "avares://Avalgame/Assets/Images/Backgrounds";
-        private const string SPRITE_PATH = "avares://Avalgame/Assets/Images/Characters";
+        public const string BACKGROUND_PATH = "avares://Avalgame/Assets/Images/Backgrounds";
+        public const string SPRITE_PATH = "avares://Avalgame/Assets/Images/Characters";
 
         public static Bitmap LoadBackground(string src) =>
             LoadFromResource(new Uri($"{BACKGROUND_PATH}/{src}"));
