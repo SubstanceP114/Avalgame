@@ -22,7 +22,7 @@ namespace Avalgame.Models
         /// <summary>
         /// 当前立绘信息
         /// </summary>
-        public SpriteInfo? Sprite { get; set; }
+        public Sprite? Sprite { get; set; }
 
         private Dictionary<string, Bitmap> images;
 
@@ -39,7 +39,7 @@ namespace Avalgame.Models
         public void Deserialize(string[] token)
         {
             CurrentDifference = token[0];
-            Sprite = JsonSerializer.Deserialize<SpriteInfo>(token[1]);
+            Sprite = JsonSerializer.Deserialize<Sprite>(token[1]);
             Sprite!.SetSource(this[CurrentDifference]);
         }
 
@@ -65,10 +65,10 @@ namespace Avalgame.Models
         /// </summary>
         public void LoadImage()
         {
-            foreach (var path in AssetLoader.GetAssets(new($"{ImageHelper.SPRITE_PATH}/{Name}"), null))
+            foreach (var path in AssetLoader.GetAssets(new($"{ImageHelper.SPRITE_PATH}/{Path}"), null))
             {
                 var image = path.Segments.Last();
-                images.Add(image.Split('.').First(), ImageHelper.LoadSprite(Name, image));
+                images.Add(image.Split('.').First(), ImageHelper.LoadSprite(Path, image));
             }
         }
     }

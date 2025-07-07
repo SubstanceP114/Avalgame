@@ -6,15 +6,15 @@ using Avalonia.Media.Imaging;
 
 namespace Avalgame.Models
 {
-    public class SpriteInfo
+    public class Sprite
     {
-        public SpriteInfo(Character character, float rotation = 0, float transparency = 0)
+        public Sprite(Character character, float rotation = 0, float transparency = 0)
             : this(character, DefaultRect, rotation, transparency) { }
-        public SpriteInfo(Bitmap source, float rotation = 0, float transparency = 0)
+        public Sprite(Bitmap source, float rotation = 0, float transparency = 0)
             : this(source, DefaultRect, rotation, transparency) { }
-        public SpriteInfo(Character character, Rect rect, float rotation = 0, float transparency = 0)
+        public Sprite(Character character, Rect rect, float rotation = 0, float transparency = 0)
             : this(CharacterManager.Instance[character.Name][character.CurrentDifference!], rect, rotation, transparency) { }
-        public SpriteInfo(Bitmap source, Rect rect, float rotation, float transparency)
+        public Sprite(Bitmap source, Rect rect, float rotation, float transparency)
         {
             this.source = source;
 

@@ -31,19 +31,22 @@ namespace Avalgame.Models
             executor.Locate(target);
             executor.Execute();
         }
+
         public void Add(string content, Locator target) => Add(new(content, target));
         public void Add(OptionInfo option)
         {
-            Infos.Add(option);
             option.Show();
+            Infos.Add(option);
             Arrange();
         }
+
         public void Arrange()
         {
             GamePageView.Instance!.ScrBtn.IsEnabled = false;
             var op = GamePageView.Instance.OptionPanel!;
             op.Spacing = (op.Height - OptionInfo.DefaultHeight * Infos.Count) / (Infos.Count + 1);
         }
+
         public void Clear()
         {
             GamePageView.Instance!.ScrBtn.IsEnabled = true;

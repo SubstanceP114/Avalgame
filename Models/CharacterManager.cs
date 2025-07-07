@@ -10,9 +10,8 @@ namespace Avalgame.Models
 {
     public class CharacterManager
     {
-        private static readonly CharacterManager instance;
-        public static CharacterManager Instance => instance;
-        static CharacterManager() => instance = new();
+        private static readonly CharacterManager? instance;
+        public static CharacterManager Instance => instance ?? new();
 
         private const string CONFIG_RES = "avares://Avalgame/Assets/Configs/characters.txt";
 

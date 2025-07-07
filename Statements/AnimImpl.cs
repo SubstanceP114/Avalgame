@@ -15,14 +15,14 @@ namespace Avalgame.Statements
             Nod,
             Swing,
         }
-        private static Dictionary<Option, Func<SpriteInfo, Animation>>? anims;
-        private static Dictionary<Option, Func<SpriteInfo, Animation>> Anims => anims ??= new()
+        private static Dictionary<Option, Func<Sprite, Animation>>? anims;
+        private static Dictionary<Option, Func<Sprite, Animation>> Anims => anims ??= new()
         {
             { Option.Jump, Jump },
             { Option.Nod, Nod },
             { Option.Swing, Swing },
         };
-        private static Animation Jump(SpriteInfo target) => new()
+        private static Animation Jump(Sprite target) => new()
         {
             Duration = TimeSpan.FromSeconds(.4),
             IterationCount = new(1),
@@ -54,7 +54,7 @@ namespace Avalgame.Statements
                 },
             }
         };
-        private static Animation Nod(SpriteInfo target) => new()
+        private static Animation Nod(Sprite target) => new()
         {
             Duration = TimeSpan.FromSeconds(.4),
             IterationCount = new(2),
@@ -86,7 +86,7 @@ namespace Avalgame.Statements
                 },
             }
         };
-        private static Animation Swing(SpriteInfo target) => new()
+        private static Animation Swing(Sprite target) => new()
         {
             Duration = TimeSpan.FromSeconds(.8),
             IterationCount = new(2),
