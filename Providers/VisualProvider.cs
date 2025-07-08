@@ -18,9 +18,12 @@ namespace Avalgame.Providers
 
             vm.Character = character;
 
+            var chara = CharacterManager.Instance[character];
+            if (string.IsNullOrEmpty(sprite))
+                if (string.IsNullOrEmpty(chara.CurrentDifference)) Logger.Error("立绘为空！");
+                else sprite = chara.CurrentDifference!;
             vm.AvatarSrc = sprite;
-
-            CharacterManager.Instance[character].Show(sprite);
+            chara.Show(sprite);
 
             vm.Dialogue = "";
             foreach (var word in dialogue)
