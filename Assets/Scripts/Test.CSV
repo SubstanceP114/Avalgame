@@ -1,7 +1,7 @@
 ﻿#禁用标记,跳转标签,执行模式,语句名称,参数,参数,参数
 ,,,BG,Noa.jpg
 ,,,SHOW,Text
-#,,,ANIM,Jump,b1
+,,,ANIM,Jump,b1
 ,,,SAY,3,b1,111
 ,,,MENU,b1,o1
 ,,,MENU,b2,o2
